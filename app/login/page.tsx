@@ -1,14 +1,15 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useEffect, FormEvent, useState } from "react";
 
 export default function LoginPage() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const {data: session} = useSession();
 
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
@@ -26,6 +27,11 @@ export default function LoginPage() {
             setError("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
         }
     }
+
+    useEffect(() => {
+        if (session)
+            router.push("/my-page");
+    }, [session])
 
     return (
         <div className="max-w-md mx-auto mt-10">
@@ -63,6 +69,13 @@ export default function LoginPage() {
                 </button>
             </p>
             {error && <p className="text-red-500 mt-2">{error}</p>}
+            <button
+                type="button"
+                onClick={() => signIn("google")}
+                className="bg-red-500 text-white px-4 py-2 mt-4 w-full cursor-pointer"
+            >
+                Sign in with Google
+            </button>
         </div>
     )
 }
