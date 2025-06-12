@@ -1,4 +1,5 @@
 'use client';
+
 import DogList from '@/components/DogList';
 import SearchBar from '@/components/SearchBar';
 import { DogBreed } from '@/types/DogBreed';

@@ -11,6 +11,8 @@ export default function Navbar() {
     const navItems = [
         { label: "Home", href: "/" },
         { label: "Breeds", href: "/breeds" },
+        { label: "Breeds Pagination", href: "/breeds-pagination" },
+        { label: "Breeds Infinite", href: "/breeds-infinite" },
         { label: "Favorites", href: "/favorites" },
         { label: "Contact", href: "/contact" },
     ];
