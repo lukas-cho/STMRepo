@@ -3,7 +3,7 @@ import * as DogBreedService from '@/services/dogBreedService';
 import {DogBreedsById} from "@/types/DogBreed";
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
-    const { id } = await params;
+    const { id } =  params;
 
     if (!id) {
         return NextResponse.json({ message: 'ID is required' }, { status: 400 });
