@@ -6,20 +6,33 @@ export const metadata = {
 };
 
 async function getFavorites() {
-  // 여기에 원하는 데이터 형태로 임의 값 리턴
-  return [
-    {
-      id: "1",
-      name: "Golden Retriever",
-      image_url: "https://example.com/golden.jpg",
-    },
-    {
-      id: "2",
-      name: "Pomeranian",
-      image_url: "https://example.com/pomeranian.jpg",
-    },
-  ];
+  return {
+    data: [
+      {
+        id: "036feed0-da8a-42c9-ab9a-57449b530b13",
+        type: "breed",
+        attributes: {
+          name: "Affenpinscher",
+          description:
+            "The Affenpinscher is a small and playful breed of dog that was originally bred in Germany for hunting small game. They are intelligent, energetic, and affectionate, and make excellent companion dogs.",
+          life: { max: 16, min: 14 },
+          male_weight: { max: 5, min: 3 },
+          female_weight: { max: 5, min: 3 },
+          hypoallergenic: true,
+        },
+        relationships: {
+          group: {
+            data: {
+              id: "f56dc4b1-ba1a-4454-8ce2-bd5d41404a0c",
+              type: "group",
+            },
+          },
+        },
+      },
+    ],
+  };
 }
+
 
 export default async function FavoritesPage() {
     const favorites = await getFavorites();
