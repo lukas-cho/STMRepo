@@ -6,7 +6,21 @@ export const metadata = {
 };
 
 async function getFavorites() {
-  return { data: [] };
+ return [
+  {
+    id: "1",
+    name: "Golden Retriever",
+    description: "Friendly and tolerant dog.",
+    life: { max: 15, min: 10 },
+  },
+  {
+    id: "2",
+    name: "Pomeranian",
+    description: "Small but spirited dog.",
+    life: { max: 16, min: 12 },
+  },
+];
+
 }
 
 
