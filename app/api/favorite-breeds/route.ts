@@ -1,44 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as FavoriteBreedService from '@/services/favoriteBreedService';
 
-export async function PATCH(req: NextRequest, { params }: any) {
-  const { id } = params;
-
-  if (!id) {
-    return NextResponse.json({ message: 'ID is required' }, { status: 400 });
-  }
-
-  try {
-    const { memo } = await req.json();
-    const updated = await FavoriteBreedService.updateFavoriteBreedMemo(id, memo);
-
-    if (!updated) {
-      return NextResponse.json({ message: 'Favorite not found' }, { status: 404 });
+export async function GET() {
+    try {
+        const favorites = await FavoriteBreedService.getAllFavoriteBreeds();
+        return NextResponse.json(favorites);
+    } catch (err) {
+        console.error('❌ Failed to fetch favorites:', err);
+        return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
     }
-
-    return NextResponse.json(updated);
-  } catch (err) {
-    console.error('❌ Failed to update memo:', err);
-    return NextResponse.json({ message: 'Server Error' }, { status: 500 });
-  }
 }
 
-export async function DELETE(_: NextRequest, { params }: any) {
-  const { id } = params;
+export async function POST(req: NextRequest) {
 
-  if (!id) {
-    return NextResponse.json({ message: 'ID is required' }, { status: 400 });
-  }
+    try {
+        const { breeds_id, memo } = await req.json();
+        if (!breeds_id) {
+            return NextResponse.json({ message: 'breeds_id is required' }, { status: 400 });
+        }
 
-  try {
-    const deleted = await FavoriteBreedService.deleteFavoriteBreed(id);
-    if (!deleted) {
-      return NextResponse.json({ message: 'Favorite not found' }, { status: 404 });
+        const newFavorite = await FavoriteBreedService.addFavoriteBreed(breeds_id, memo);
+        return NextResponse.json(newFavorite, { status: 201 });
+    } catch (err) {
+        console.error('❌ Failed to add favorite:', err);
+        return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
     }
-
-    return NextResponse.json({ message: 'Deleted successfully' });
-  } catch (err) {
-    console.error('❌ Failed to delete favorite breed:', err);
-    return NextResponse.json({ message: 'Server Error' }, { status: 500 });
-  }
 }
