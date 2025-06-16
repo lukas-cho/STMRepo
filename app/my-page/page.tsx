@@ -69,13 +69,19 @@ export default function MyPage() {
             </div>
 
 
-            {showModal && profile && (
-                <ProfileEditModal
-                    initialProfile={profile}
-                    onClose={() => setShowModal(false)}
-                    onSave={loadProfile}
-                />
-            )}
+{showModal && profile && (
+  <ProfileEditModal
+    initialProfile={{
+      phone: profile.phone ?? "",
+      address: profile.address ?? "",
+      city: profile.city ?? "",
+      state: profile.state ?? "",
+      zip: profile.zip ?? ""
+    }}
+    onClose={() => setShowModal(false)}
+    onSave={loadProfile}
+  />
+)}
         </div>
     );
 }
