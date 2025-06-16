@@ -2,12 +2,13 @@
   "name": "09_exercise",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+ "scripts": {
+  "dev": "next dev --turbopack",
+  "build": "prisma generate && next build",
+  "start": "next start",
+  "lint": "next lint"
+},
+
   "dependencies": {
     "@prisma/client": "^6.8.2",
     "@radix-ui/react-slot": "^1.2.3",
