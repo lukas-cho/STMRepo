@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
 import * as DogBreedService from '@/services/dogBreedService';
 import {DogBreedsById} from "@/types/DogBreed";
-
-export async function GET(_: Request, { params }: { params: { id: string } }) {
-    const { id } =  params;
+type Context = {
+  params: {
+    id: string;
+  };
+};
+export async function GET(_: Request, context: Context) {
+    const { id } =  context.params;
 
     if (!id) {
         return NextResponse.json({ message: 'ID is required' }, { status: 400 });
