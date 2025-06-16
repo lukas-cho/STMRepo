@@ -9,7 +9,7 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const {data: session} = useSession();
+    const {data: session, status } = useSession();
 
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
@@ -28,10 +28,15 @@ export default function LoginPage() {
         }
     }
 
-    useEffect(() => {
-        if (session)
-            router.push("/my-page");
-    }, [session])
+  useEffect(() => {
+    if (session) {
+      router.push("/my-page");
+    }
+  }, [session, router]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
     return (
         <div className="max-w-md mx-auto mt-10">
@@ -71,7 +76,7 @@ export default function LoginPage() {
             {error && <p className="text-red-500 mt-2">{error}</p>}
             <button
                 type="button"
-                onClick={() => signIn("google")}
+                 onClick={() => signIn("google", { callbackUrl: "/my-page" })}
                 className="bg-red-500 text-white px-4 py-2 mt-4 w-full cursor-pointer"
             >
                 Sign in with Google

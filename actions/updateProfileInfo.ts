@@ -5,16 +5,16 @@ import { getAuthSession } from "@/lib/auth";
 
 export async function updateProfileInfo({
                                                phone,
-                                               street,
+                                               address,
                                                city,
                                                state,
-                                               zipcode,
+                                               zip,
                                            }: {
     phone: string;
-    street: string;
+    address: string;
     city: string;
     state: string;
-    zipcode: string;
+    zip : string;
 }) {
     const session = await getAuthSession();
 
@@ -27,15 +27,16 @@ export async function updateProfileInfo({
             where: { id: session.user.id },
             data: {
                 phone,
-                street,
+                address,
                 city,
                 state,
-                zipcode,
+                zip,
             },
         });
-
+console.log({ phone, address, city, state, zip });
         return { success: true };
     } catch (error) {
+
         console.error("Update profile failed:", error);
         return { success: false, message: "Server error" };
     }

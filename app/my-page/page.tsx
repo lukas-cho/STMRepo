@@ -1,14 +1,14 @@
 "use client"
 import { redirect } from "next/navigation";
-import {signOut, useSession} from "next-auth/react";
-import {useEffect, useState} from "react";
+import { signOut, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import ProfileEditModal from "@/components/ProfileEditModal";
-import {type Session } from "next-auth"
-import {getMyProfile} from "@/actions/getMyProfile";
+import { type Session } from "next-auth"
+import { getMyProfile } from "@/actions/getMyProfile";
 import { useRouter } from "next/navigation";
 
 export default function MyPage() {
-    const {data: session} = useSession();
+    const { data: session } = useSession();
     const [profile, setProfile] = useState<Session["user"] | null>(null);
     const [loggedIn, setLoggedIn] = useState<boolean | null>(null); // null = 로딩 중
     const [showModal, setShowModal] = useState(false);
@@ -27,11 +27,11 @@ export default function MyPage() {
         loadProfile();
     }, []);
 
-      useEffect(() => {
+    useEffect(() => {
         if (loggedIn === false) {
-          router.replace("/login");
+            router.replace("/login");
         }
-      }, [loggedIn]);
+    }, [loggedIn]);
 
     if (!session?.user) {
         redirect("/login");
@@ -47,11 +47,10 @@ export default function MyPage() {
             <p>Your user ID is {session.user.id}.</p>
             <p>Your email is {session.user.email}.</p>
             <p>Your phone number is {profile.phone}.</p>
-            <p><strong>Address:</strong></p>
-            <div className="ml-4">
-                <p>{profile.street}</p>
-                <p>{profile.city}, {profile.state} {profile.zipcode}</p>
-            </div>
+            <p>Your address is {profile.address}.</p>
+            <p>Your city is {profile.city}.</p>
+            <p>Your state code is {profile.state}.</p>
+            <p>Your zip code is {profile.zip}.</p>
 
             <div className="flex gap-2">
                 <button
@@ -70,9 +69,12 @@ export default function MyPage() {
             </div>
 
 
-            {showModal && (
-                <ProfileEditModal onClose={() => setShowModal(false)} onSave={loadProfile}/>
-
+            {showModal && profile && (
+                <ProfileEditModal
+                    initialProfile={profile}
+                    onClose={() => setShowModal(false)}
+                    onSave={loadProfile}
+                />
             )}
         </div>
     );

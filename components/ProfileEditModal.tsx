@@ -1,16 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateProfileInfo } from "@/actions/updateProfileInfo";
 
-export default function ProfileEditModal({   onClose, onSave }: { onClose: () => void; onSave: () => void; }) {
-    const [form, setForm] = useState({
-        phone: "",
-        street: "",
-        city: "",
-        state: "",
-        zipcode: "",
-    });
+type ProfileEditModalProps = {
+    onClose: () => void;
+    onSave: () => void;
+    initialProfile: {
+        phone: string;
+        address: string;
+        city: string;
+        state: string;
+        zip: string;
+    };
+};
+
+export default function ProfileEditModal({ onClose, onSave, initialProfile }: ProfileEditModalProps) {
+    const [form, setForm] = useState(initialProfile);
+
+    useEffect(() => {
+        setForm(initialProfile);
+    }, [initialProfile]);
 
     const [message, setMessage] = useState("");
 
@@ -35,7 +45,7 @@ export default function ProfileEditModal({   onClose, onSave }: { onClose: () =>
             <div className="bg-white p-6 rounded shadow-lg max-w-md w-full">
                 <h2 className="text-xl font-bold mb-4">Complete Your Profile</h2>
                 <form onSubmit={handleSubmit} className="space-y-3">
-                    {["phone", "street", "city", "state", "zipcode"].map((field) => (
+                    {["phone", "address", "city", "state", "zip"].map((field) => (
                         <input
                             key={field}
                             name={field}

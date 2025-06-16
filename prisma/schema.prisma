@@ -28,8 +28,8 @@ model profiles {
   created_at DateTime @default(now()) @db.Timestamptz(6)
   name       String?
   phone      String?
-  street     String?
+  address     String?
   city       String?
   state      String?
-  zipcode    String?
+  zip        String?
 }

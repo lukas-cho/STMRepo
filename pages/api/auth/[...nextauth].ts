@@ -59,10 +59,10 @@ export const authOptions: NextAuthOptions = {
                                 id: user.id,
                                 name: user.name || "Unnamed",
                                 phone: "",             // 기본값
-                                street: "",
+                                address: "",
                                 city: "",
                                 state: "",
-                                zipcode: "",
+                                zip: "",
                             },
                         });
                     }
@@ -88,10 +88,10 @@ export const authOptions: NextAuthOptions = {
             if (profile) {
                 session.user.name = profile.name;
                 session.user.phone = profile.phone;
-                session.user.street = profile.street;
+                session.user.address = profile.address;
                 session.user.city = profile.city;
                 session.user.state = profile.state;
-                session.user.zipcode = profile.zipcode;
+                session.user.zip = profile.zip;
             }
 
             return session;
