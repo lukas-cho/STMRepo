@@ -8,7 +8,7 @@ export const metadata = {
 async function getFavorites() {
  return [
   {
-    id: "1",
+    id: "1", 
     name: "Golden Retriever",
     description: "Friendly and tolerant dog.",
     life: { max: 15, min: 10 },
