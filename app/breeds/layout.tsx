@@ -1,23 +1,24 @@
-import axios from 'axios';
-import React from 'react'
 import { BreedsProvider } from './BreedsContext';
+import React from 'react';
 
 async function getBreeds() {
-
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/dog-breeds`);
-  return res.data;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/dog-breeds`, {
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('Failed to fetch breeds');
+  return res.json();
 }
 
-const BreedsLayout = async ({children}: {children: React.ReactNode}) => {
-    const breeds = await getBreeds();
+export default async function BreedsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const breeds = await getBreeds();
 
   return (
     <BreedsProvider breeds={breeds}>
-        <div className="min-h-screen w-full bg-gray-50 text-gray-800">
-            {children}
-        </div>
+      {children}
     </BreedsProvider>
-  )
+  );
 }
-
-export default BreedsLayout
