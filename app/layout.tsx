@@ -4,7 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SessionWrapper from "@/components/SessionWrapper";
+import EditIssueButton from "@/components/EditIssueButton";
 
+ 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -33,10 +35,12 @@ export default function RootLayout({
         <SessionWrapper>
           <Navbar />
           <main className="flex-grow">
-          {children}
+            {children}
 
           </main>
+         
           <Footer />
+      <EditIssueButton /> 
         </SessionWrapper>
       </body>
     </html>
