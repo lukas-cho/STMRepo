@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Breeds Project",
+  title: " ShortTerm Mission",
   description: "My first Next.js project",
 };
 

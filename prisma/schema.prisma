@@ -1,45 +1,80 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["public"]
 }
 
-model favorite_breeds {
-  id         String   @id(map: "breeds_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+model menu_categories {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  category_name String   @unique
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  menus         menus[]
+
+  @@schema("public")
+}
+
+model menus {
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  menu_name          String
+  menu_category_id   String               @db.Uuid
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  menu_categories    menu_categories      @relation(fields: [menu_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  mission_team_menus mission_team_menus[]
+
+  @@schema("public")
+}
+
+model mission_team_menus {
+  id                     String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  mission_team_id        String        @db.Uuid
+  menu_id                String        @db.Uuid
+  unit_price             Decimal       @db.Decimal(10, 2)
+  quantity_available     Int
+  quantity_sold          Int           @default(0)
+  total_sales_amount     Decimal       @default(0) @db.Decimal(12, 2)
+  ingredient_cost_amount Decimal       @default(0) @db.Decimal(12, 2)
+  created_at             DateTime      @default(now()) @db.Timestamptz(6)
+  menus                  menus         @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  mission_teams          mission_teams @relation(fields: [mission_team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("public")
+}
+
+model mission_teams {
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  country            String
+  year               Int
+  member_count       Int
+  period             String
+  description        String?
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  contact_email      String?
+  mission_team_menus mission_team_menus[]
+
+  @@schema("public")
+}
+
+model userroles {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role_name  String   @unique
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  memo       String?
-  breeds_id  String?  @unique
+  users      users[]
+
+  @@schema("public")
 }
 
-model inquiry {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String
-  subject   String
-  message   String
-  createdAt DateTime @default(now())
-}
+model users {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email       String    @unique
+  password    String
+  userrole_id String    @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  userroles   userroles @relation(fields: [userrole_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-model profiles {
-  id         String   @id @default(dbgenerated("gen_random_uuid()"))
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  name       String?
-  phone      String?
-  address     String?
-  city       String?
-  state      String?
-  zip        String?
-}
-
-model issue {
-  id          String   @id @default(uuid())
-  firstName   String
-  lastName    String
-  email       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  @@schema("public")
 }
