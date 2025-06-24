@@ -43,20 +43,23 @@ export async function GET(request: Request) {
     })
 
     const result = profitData.map((p) => {
-      const menu = menus.find((m) => m.id === p.menu_id)
-      const sales = p._sum.total_sales_amount ?? 0
-      const cost = p._sum.ingredient_cost_amount ?? 0
-      const profit = sales - cost
-      const profitRate = sales > 0 ? Math.round((profit / sales) * 100) : 0
+  const menu = menus.find((m) => m.id === p.menu_id)
 
-      return {
-        menu_name: menu ? menu.menu_name : 'Unknown',
-        quantity_sold: p._sum.quantity_sold ?? 0,
-        total_sales_amount: sales,
-        profit_amount: profit,
-        profit_rate: profitRate,
-      }
-    })
+  const sales = p._sum.total_sales_amount ? Number(p._sum.total_sales_amount) : 0
+  const cost = p._sum.ingredient_cost_amount ? Number(p._sum.ingredient_cost_amount) : 0
+
+  const profit = sales - cost
+  const profitRate = sales > 0 ? Math.round((profit / sales) * 100) : 0
+
+  return {
+    menu_name: menu ? menu.menu_name : 'Unknown',
+    quantity_sold: p._sum.quantity_sold ?? 0,
+    total_sales_amount: sales,
+    profit_amount: profit,
+    profit_rate: profitRate,
+  }
+})
+
 
     const sortedResult = result.sort((a, b) => b.profit_rate - a.profit_rate).slice(0, 10)
 
