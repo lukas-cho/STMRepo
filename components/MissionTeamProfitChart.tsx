@@ -2,13 +2,18 @@
 import React, { useEffect, useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts'
 
+type ProfitData = {
+  menu_name: string;
+  profit_rate: number;
+}
+
 export default function MissionTeamProfitChart({ year }: { year: number }) {
-  const [profitData, setProfitData] = useState([])
+  const [profitData, setProfitData] = useState<ProfitData[]>([])
 
   useEffect(() => {
-    fetch(`/api/mission-team-profits?year=${year}`)  // year 파라미터 추가
+    fetch(`/api/mission-team-profits?year=${year}`)
       .then(res => res.json())
-      .then(data => {
+      .then((data: ProfitData[]) => {
         if (!data || data.length === 0) {
           setProfitData([{ menu_name: '', profit_rate: 0 }])
         } else {
@@ -18,11 +23,11 @@ export default function MissionTeamProfitChart({ year }: { year: number }) {
       .catch(() => {
         setProfitData([{ menu_name: '', profit_rate: 0 }])
       })
-  }, [])
+  }, [year])
 
   return (
     <div className="p-6 bg-white rounded-xl shadow ">
-      <h2 className="text-2xl font-bold mb-4">{year}년 메뉴별 수익률 </h2>
+      <h2 className="text-2xl font-bold mb-4">{year}년 메뉴별 수익률</h2>
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={profitData}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -55,9 +60,7 @@ export default function MissionTeamProfitChart({ year }: { year: number }) {
             />
           </Bar>
         </BarChart>
-
       </ResponsiveContainer>
     </div>
   )
 }
- 
