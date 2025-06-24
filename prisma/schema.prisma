@@ -102,3 +102,15 @@ model inquiry {
 
   @@schema("public")
 }
+
+model issue {
+  id          String   @id
+  firstName   String
+  lastName    String
+  email       String
+  description String
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @db.Timestamp(6)
+
+  @@schema("public")
+}
