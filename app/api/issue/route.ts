@@ -12,14 +12,16 @@ export async function POST(request: Request) {
   }
 
   try {
-    await prisma.issue.create({
-      data: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        description: data.description,
-      },
-    });
+await prisma.issue.create({
+  data: {
+    id: crypto.randomUUID(),  // 직접 생성해도 되고
+    firstName: result.data.firstName,
+    lastName: result.data.lastName,
+    email: result.data.email,
+    description: result.data.description,
+    updatedAt: new Date(),
+  },
+})
 
     return NextResponse.json({ message: '이슈 등록 완료!' }, { status: 200 });
   } catch (error) {
