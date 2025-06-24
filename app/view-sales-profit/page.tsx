@@ -56,8 +56,8 @@ export default function MenuSalesProfitPage() {
   }
 
   return (
-    <main className="max-w-7xl mx-auto px-4 py-10">
-      <div className="mb-6 flex items-center gap-4">
+  <main style={{ marginLeft: '18rem' }} className="w-full overflow-x-hidden bg-gray-50">
+      <div className="mb-6 flex items-center gap-4 flex-wrap">
         <label htmlFor="year" className="font-semibold">
           Year:
         </label>
@@ -75,30 +75,33 @@ export default function MenuSalesProfitPage() {
         </select>
       </div>
 
-      
       {sortedData.length === 0 ? (
         <p>No data available for {year}</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse border border-gray-300">
+        // 여기 overflow-x-auto 로 가로 스크롤 가능하게 함
+        <div className="overflow-x-auto border border-gray-300 rounded">
+          <table
+            className="min-w-[700px] border-collapse border border-gray-300"
+            style={{ tableLayout: 'auto' }}
+          >
             <thead>
               <tr className="bg-gray-100">
-                <th className="border border-gray-300 px-4 py-2 text-left">Menu Name</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Category</th>
+                <th className="border border-gray-300 px-4 py-2 text-left whitespace-nowrap">Menu Name</th>
+                <th className="border border-gray-300 px-4 py-2 text-left whitespace-nowrap">Category</th>
                 <th
-                  className="border border-gray-300 px-4 py-2 text-right cursor-pointer"
+                  className="border border-gray-300 px-4 py-2 text-right cursor-pointer whitespace-nowrap"
                   onClick={() => onSortClick('quantity')}
                 >
                   Quantity Sold {sortKey === 'quantity' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
                 </th>
                 <th
-                  className="border border-gray-300 px-4 py-2 text-right cursor-pointer"
+                  className="border border-gray-300 px-4 py-2 text-right cursor-pointer whitespace-nowrap"
                   onClick={() => onSortClick('sales')}
                 >
                   Sales Amount {sortKey === 'sales' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
                 </th>
                 <th
-                  className="border border-gray-300 px-4 py-2 text-right cursor-pointer"
+                  className="border border-gray-300 px-4 py-2 text-right cursor-pointer whitespace-nowrap"
                   onClick={() => onSortClick('profit')}
                 >
                   Profit Rate {sortKey === 'profit' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}

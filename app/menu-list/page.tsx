@@ -22,7 +22,7 @@ export default function MenuListPage() {
   )
 
   return (
-    <main className="max-w-7xl mx-auto px-4 py-10">
+<main style={{ marginLeft: '18rem' }} className="w-full overflow-x-hidden bg-gray-50">
       {/* 검색 섹션 */}
       <div className="flex flex-wrap gap-4 mb-8 items-center">
         {/* 연도 드롭다운 */}
