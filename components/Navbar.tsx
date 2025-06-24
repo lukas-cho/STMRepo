@@ -17,7 +17,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-blue-800 to-blue-400 text-white shadow-lg flex flex-col justify-between">
+  <nav className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-blue-800 to-blue-400 text-white shadow-lg flex-col justify-between">
+
       
       {/* 로고 + 메뉴 */}
       <div className="flex flex-col items-center pt-8">

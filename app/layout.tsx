@@ -34,7 +34,7 @@ export default function RootLayout({
       >
         <SessionWrapper>
           <Navbar />
-          <main className="flex-grow">
+  <main className="flex-grow ml-64">
             {children}
 
           </main>

@@ -15,14 +15,14 @@ export default function MenuListPage() {
     { id: 6, name: "Cake", category: "Dessert", year: "2025" },
   ]
 
-  // 검색 필터 적용
+  // 필터 적용
   const filteredMenus = menus.filter(menu =>
     (year === "All" || menu.year === year) &&
     (category === "All" || menu.category === category)
   )
 
   return (
-<main style={{ marginLeft: '18rem' }} className="w-full overflow-x-hidden bg-gray-50">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       {/* 검색 섹션 */}
       <div className="flex flex-wrap gap-4 mb-8 items-center">
         {/* 연도 드롭다운 */}
@@ -43,13 +43,13 @@ export default function MenuListPage() {
           className="border rounded px-3 py-2"
         >
           <option value="All">All Categories</option>
-          <option value="Food">Asian</option>
-          <option value="Beverage">Mexican</option>
-          <option value="Dessert">Salad</option>
-          <option value="Service">Salad</option>
+          <option value="Food">Food</option>
+          <option value="Beverage">Beverage</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Service">Service</option>
         </select>
 
-        {/* Search 버튼 (여기선 필터는 자동으로 되고 버튼은 모양만) */}
+        {/* Search 버튼 */}
         <button className="bg-blue-600 text-white px-4 py-2 rounded">
           Search
         </button>
@@ -65,6 +65,6 @@ export default function MenuListPage() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   )
 }

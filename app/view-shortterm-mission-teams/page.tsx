@@ -41,7 +41,7 @@ export default function MissionTeamsPage() {
   )
 
   return (
-<main style={{ marginLeft: '18rem' }} className="w-full overflow-x-hidden bg-gray-50">
+  <main className="w-full overflow-x-auto bg-gray-50 p-6">
   {/* 검색 섹션 */}
   <div className="flex flex-wrap gap-4 mb-8 items-center">
     <select
