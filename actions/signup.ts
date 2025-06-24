@@ -12,14 +12,7 @@ export async function signUpProfileToDB({
     phone: string;
 }): Promise<{ success: boolean }> {
     try {
-        await prisma.profiles.create({
-            data: {
-                id,
-                name,
-                phone,
-            },
-        });
-        return { success: true };
+      
     } catch (error) {
         console.error("Failed to insert profile:", error);
         return { success: false };
