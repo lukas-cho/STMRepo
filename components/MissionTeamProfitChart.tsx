@@ -55,7 +55,7 @@ export default function MissionTeamProfitChart({ year }: { year: number }) {
             <LabelList
               dataKey="profit_rate"
               position="insideTop"
-              formatter={(v) => `${v}%`}
+              formatter={(v: number) => `${v}%`}
               style={{ fill: '#333', fontSize: 14, fontWeight: 'bold' }}
             />
           </Bar>
