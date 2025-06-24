@@ -24,15 +24,7 @@ export async function submitIssue(
         }
     }
 
-await prisma.issue.create({
-  data: {
-    id: crypto.randomUUID(),  // 직접 생성해도 되고
-   Name: result.data.name,
-    email: result.data.email,
-    description: result.data.description,
-    updatedAt: new Date(),
-  },
-})
+
 
     return {
         success: true,

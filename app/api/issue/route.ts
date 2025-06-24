@@ -12,15 +12,6 @@ export async function POST(request: Request) {
   }
 
   try {
-await prisma.issue.create({
-  data: {
-    id: crypto.randomUUID(),  // 직접 생성해도 되고
-    Name: result.data.name,
-    email: result.data.email,
-    description: result.data.description,
-    updatedAt: new Date(),
-  },
-})
 
     return NextResponse.json({ message: '이슈 등록 완료!' }, { status: 200 });
   } catch (error) {
