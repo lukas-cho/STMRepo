@@ -78,3 +78,16 @@ model users {
 
   @@schema("public")
 }
+
+model profiles {
+  id         String   @id @default(dbgenerated("gen_random_uuid()"))
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  name       String?
+  phone      String?
+  address    String?
+  city       String?
+  state      String?
+  zip        String?
+
+  @@schema("public")
+}
