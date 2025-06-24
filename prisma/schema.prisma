@@ -114,3 +114,12 @@ model issue {
 
   @@schema("public")
 }
+
+model favorite_breeds {
+  id         String   @id(map: "breeds_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  memo       String?
+  breeds_id  String?  @unique
+
+  @@schema("public")
+}
