@@ -29,7 +29,7 @@ export default function MissionTeamSalesChart({ year }: { year: number }) {
     <div className="p-6 bg-white rounded-xl shadow">
       <h2 className="text-2xl font-bold mb-4">{year}년 메뉴별 판매수량</h2>
       <ResponsiveContainer width="100%" height={250}>
-        <BarChart data={salesData}>
+        <BarChart data={salesData} barCategoryGap={30}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="menu_name"
@@ -42,6 +42,7 @@ export default function MissionTeamSalesChart({ year }: { year: number }) {
           <Bar
             dataKey="total_quantity_sold"
             fill="#38bdf8"
+            barSize={20}
             label={{
               position: 'insideTop',
               fill: '#fff',
@@ -51,6 +52,7 @@ export default function MissionTeamSalesChart({ year }: { year: number }) {
           />
         </BarChart>
       </ResponsiveContainer>
+
     </div>
   )
 }

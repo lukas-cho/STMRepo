@@ -77,7 +77,7 @@ export default function MissionTeamSalesAmountChart({ year }: { year: number }) 
     <div className="p-6 bg-white rounded-xl shadow">
       <h2 className="text-2xl font-bold mb-4">{year}년 메뉴별 판매금액</h2>
       <ResponsiveContainer width="100%" height={250}>
-        <BarChart data={amountData}>
+        <BarChart data={amountData} barCategoryGap={30}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="menu_name"
@@ -99,7 +99,7 @@ export default function MissionTeamSalesAmountChart({ year }: { year: number }) 
             }}
           />
           <Tooltip formatter={(value: number) => `$${value.toLocaleString()}`} />
-          <Bar dataKey="total_sales_amount" fill="#facc15">
+          <Bar dataKey="total_sales_amount" fill="#facc15" barSize={20}>
             <LabelList
               dataKey="total_sales_amount"
               position="insideTop"
@@ -109,6 +109,7 @@ export default function MissionTeamSalesAmountChart({ year }: { year: number }) 
           </Bar>
         </BarChart>
       </ResponsiveContainer>
+
     </div>
   )
 }

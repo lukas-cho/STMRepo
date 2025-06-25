@@ -29,7 +29,7 @@ export default function MissionTeamProfitChart({ year }: { year: number }) {
     <div className="p-6 bg-white rounded-xl shadow ">
       <h2 className="text-2xl font-bold mb-4">{year}년 메뉴별 수익률</h2>
       <ResponsiveContainer width="100%" height={250}>
-        <BarChart data={profitData}>
+        <BarChart data={profitData} barCategoryGap={30}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="menu_name"
@@ -51,7 +51,7 @@ export default function MissionTeamProfitChart({ year }: { year: number }) {
             }}
           />
           <Tooltip formatter={(value) => `${value}%`} />
-          <Bar dataKey="profit_rate" fill="#60d394">
+          <Bar dataKey="profit_rate" fill="#60d394" barSize={20}>
             <LabelList
               dataKey="profit_rate"
               position="insideTop"
@@ -61,6 +61,7 @@ export default function MissionTeamProfitChart({ year }: { year: number }) {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
+
     </div>
   )
 }
