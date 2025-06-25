@@ -4,8 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SessionWrapper from "@/components/SessionWrapper";
-import EditIssueButton from "@/components/EditIssueButton";
-
  
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +38,6 @@ export default function RootLayout({
           </main>
          
           <Footer />
-      <EditIssueButton /> 
         </SessionWrapper>
       </body>
     </html>

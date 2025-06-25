@@ -13,7 +13,6 @@ export default function Navbar() {
     { label: "View Menu Sales & Profit", href: "/view-sales-profit" },
     { label: "View Short-term Mission Teams", href: "/view-shortterm-mission-teams" },
     { label: "Register Short-term Team", href: "/new-mission-team" },
-    { label: "Contact", href: "/contact" },
   ];
 
   return (

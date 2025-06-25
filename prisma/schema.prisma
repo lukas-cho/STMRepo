@@ -23,6 +23,10 @@ model menus {
   menu_name          String
   menu_category_id   String               @db.Uuid
   created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  ingredient_name    String?
+  serving_size       Int?                 @default(0) @db.SmallInt
+  total_cost         Float?               @default(0) @db.Real
+  menu_image         Bytes?
   menu_categories    menu_categories      @relation(fields: [menu_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   mission_team_menus mission_team_menus[]
 
@@ -88,38 +92,6 @@ model profiles {
   city       String?
   state      String?
   zip        String?
-
-  @@schema("public")
-}
-
-model inquiry {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String
-  subject   String
-  message   String
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-
-  @@schema("public")
-}
-
-model issue {
-  id          String   @id
-  firstName   String
-  lastName    String
-  email       String
-  description String
-  createdAt   DateTime @default(now()) @db.Timestamp(6)
-  updatedAt   DateTime @db.Timestamp(6)
-
-  @@schema("public")
-}
-
-model favorite_breeds {
-  id         String   @id(map: "breeds_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  memo       String?
-  breeds_id  String?  @unique
 
   @@schema("public")
 }
