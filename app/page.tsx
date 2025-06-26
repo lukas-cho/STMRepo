@@ -18,19 +18,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-white text-gray-800">
       <section className="max-w-6xl mx-auto px-2 py-10 text-center">
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-blue-700 mb-3 text-center break-words">
-          또 이르시되 너희는 온 천하에 다니며 만민에게 복음을 전파하라.
-        </h1>
-        <div className="my-3 p-4 bg-white rounded-xl shadow w-4/5 mx-auto">
-          <MissionTeamSalesAmountChart  year={year} />
-        </div>
-        <div className="my-3 p-4 bg-white rounded-xl shadow w-4/5 mx-auto">
-          <MissionTeamSalesChart  year={year} />
-        </div>
-        <div className="my-3 p-4 bg-white rounded-xl shadow w-4/5 mx-auto">
-              <MissionTeamProfitChart year={year} />
-        </div>
-        {/* 이하 동일 */}
+      
       </section>
     </main>
   )
