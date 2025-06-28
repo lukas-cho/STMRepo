@@ -1,22 +1,19 @@
-'use client'
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import AuthButton from './AuthButton';
-import Image from "next/image"
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import AuthButton from "./AuthButton";
+import Image from "next/image";
 
 export default function Navbar() {
   const pathname = usePathname();
 
   const navItems = [
     { label: "Home", href: "/" },
-
-
+    { label: "AI Test All", href: "/ai/all-ai-test" },
   ];
 
   return (
-  <nav className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-blue-800 to-blue-400 text-white shadow-lg flex-col justify-between">
-
-      
+    <nav className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-blue-800 to-blue-400 text-white shadow-lg flex-col justify-between">
       {/* 로고 + 메뉴 */}
       <div className="flex flex-col items-center pt-8">
         {/* 로고 */}
@@ -53,5 +50,5 @@ export default function Navbar() {
         <AuthButton />
       </div>
     </nav>
-  )
+  );
 }
