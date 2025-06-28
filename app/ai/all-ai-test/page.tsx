@@ -12,6 +12,7 @@ export default function AudioTranscriptionPage() {
   const audioChunksRef = useRef<Blob[]>([]);
   const [ingredients, setIngredients] = useState("");
   const [cookingSequence, setCookingSequence] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -55,21 +56,27 @@ export default function AudioTranscriptionPage() {
 
   const submitReceipt = async () => {
     try {
+      setLoading(true);
       const res = await axios.post("/api/ai/image");
       setIngredients(res.data.ingredients ?? "No ingredients found");
     } catch (err) {
       console.error("Receipt submission error:", err);
       setIngredients("Receipt submission failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   const submitYoutubeLink = async () => {
     try {
+      setLoading(true);
       const res = await axios.post("/api/ai/video");
       setCookingSequence(res.data.sequence ?? "No sequence found");
     } catch (err) {
       console.error("Link submission error:", err);
       setCookingSequence("Link submission failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -123,7 +130,13 @@ export default function AudioTranscriptionPage() {
 
       <div className="mt-4 p-4 bg-gray-100 rounded">
         <b>요리 재료:</b>
-        <p>{ingredients}</p>
+        {loading ? (
+          <p className="animate-bounce">
+            영수증에서 재료를 추출해오는 중입니다. 잠시만 기다려주세요...
+          </p>
+        ) : (
+          <p>{ingredients}</p>
+        )}
       </div>
       <br />
       <h2 className="text-xl font-bold">유투브 영상에서 레시피 가져오기</h2>
@@ -142,7 +155,13 @@ export default function AudioTranscriptionPage() {
       </button>
       <div className="mt-4 p-4 bg-gray-100 rounded">
         <b>만드는 순서:</b>
-        <p>{cookingSequence}</p>
+        {loading ? (
+          <p className="animate-bounce">
+            레시피를 가져오는 중입니다. 잠시만 기다려주세요...
+          </p>
+        ) : (
+          <p>{cookingSequence}</p>
+        )}
       </div>
     </div>
   );
