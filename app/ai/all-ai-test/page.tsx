@@ -86,6 +86,19 @@ export default function AudioTranscriptionPage() {
     }
   };
 
+    const submitCustomYoutubeLink = async () => {
+    try {
+      setProcessingVideo(true);
+      const res = await axios.post("/api/ai/video");
+      setCookingSequence(res.data.sequence ?? "No sequence found");
+    } catch (err) {
+      console.error("Link submission error:", err);
+      setCookingSequence("Link submission failed");
+    } finally {
+      setProcessingVideo(false);
+    }
+  };
+
   return (
     <div className="max-w-xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">
@@ -140,38 +153,46 @@ export default function AudioTranscriptionPage() {
       >
         {"영주증 사진속에서 음식재료 가져오기"}
       </button>
-
-      <form className="mt-4">
-        <label className="block mb-2">
-          또는, 영수증 사진이 있으시면 직접 업로드하세요 (jpg, png 형식):
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                const file = e.target.files[0];
-                const formData = new FormData();
-                formData.append("image", file); // 이미지 파일을 'image' 키로 전송
-                setProcessingImage(true);
-                axios
-                  .post("/api/ai/image", formData)
-                  .then((res) => {
-                    setIngredients(
-                      res.data.ingredients ?? "No ingredients found"
-                    );
-                  })
-                  .catch((err) => {
-                    console.error("Image upload error:", err);
-                    setIngredients("Image upload failed");
-                  })
-                  .finally(() => {
-                    setProcessingImage(false);
-                  });
-              }
-            }}
-            className="block w-full mt-2"
-          />
+      <br />
+      <br />
+      <form className="space-y-4">
+        <label
+          htmlFor="fileInput"
+          className="inline-block px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition"
+        >
+          또는, 영수증 사진이 있으시면 직접 업로드하세요 (jpg, png 형식)
         </label>
+        <input
+          id="fileInput"
+          className="w-full px-4 py-2 border
+                                       border-gray-300 rounded-md
+                                       focus:outline-none focus:ring-2
+                                       focus:ring-indigo-500"
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              const file = e.target.files[0];
+              const formData = new FormData();
+              formData.append("image", file); // 이미지 파일을 'image' 키로 전송
+              setProcessingImage(true);
+              axios
+                .post("/api/ai/image", formData)
+                .then((res) => {
+                  setIngredients(
+                    res.data.ingredients ?? "No ingredients found"
+                  );
+                })
+                .catch((err) => {
+                  console.error("Image upload error:", err);
+                  setIngredients("Image upload failed");
+                })
+                .finally(() => {
+                  setProcessingImage(false);
+                });
+            }
+          }}
+        />
       </form>
       <br />
 
@@ -191,8 +212,8 @@ export default function AudioTranscriptionPage() {
       <h2 className="text-xl font-bold">유투브 영상에서 레시피 가져오기</h2>
       <p>
         버튼을 클릭하여 유투브 영상에서 레시피를 가져옵니다. 영상의 조리과정이
-        길거나 복잡할 경우, 레시피 추출에 시간이 걸릴 수 있습니다. 버튼을 클릭을
-        한번만 클릭하고 기다려주세요. 원본영상:
+        길거나 복잡할 경우, 레시피 추출에 시간이 걸릴 수 있습니다. 버튼을 한번만
+        클릭하고 기다려주세요. 원본영상:
         https://www.youtube.com/shorts/Gktl_orbcp8
       </p>
       <br />
@@ -200,15 +221,21 @@ export default function AudioTranscriptionPage() {
         onClick={submitYoutubeLink}
         className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-900"
       >
-        {"유투브 영상속에서 레시피 가져오기"}
+        {"유튜브 영상속에서 레시피 가져오기"}
       </button>
       <form className="mt-4">
-        <label className="block mb-2">
-          또는, 원하시는 유투브 요리영상 링크를 입력하세요:
+        <label
+          className="block mb-2 text-sm
+                                          font-medium text-gray-600"
+        >
+          또는, 원하시는 다른 유튜브 요리영상 링크를 입력하세요:
           <input
             type="text"
             placeholder="https://www.youtube.com/shorts/Gktl_orbcp8"
-            className="block w-full mt-2 p-2 border rounded"
+            className="w-full px-4 py-2 border
+                                       border-gray-300 rounded-md
+                                       focus:outline-none focus:ring-2
+                                       focus:ring-indigo-500"
             onChange={(e) => {
               const videoUrl = e.target.value;
               if (videoUrl) {
@@ -232,6 +259,12 @@ export default function AudioTranscriptionPage() {
           />
         </label>
       </form>
+      <button
+        onClick={submitCustomYoutubeLink}
+        className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-900"
+      >
+        {"영상처리하기"}
+      </button>
       <br />
       <div className="mt-4 p-4 bg-gray-100 rounded">
         <b>만드는 순서:</b>
