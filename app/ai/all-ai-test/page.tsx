@@ -13,6 +13,9 @@ export default function AudioTranscriptionPage() {
   const [ingredients, setIngredients] = useState("");
   const [cookingSequence, setCookingSequence] = useState("");
   const [loading, setLoading] = useState(false);
+  const [processingAudio, setProcessingAudio] = useState(false);
+  const [processingImage, setProcessingImage] = useState(false);
+  const [processingVideo, setProcessingVideo] = useState(false);
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -37,11 +40,14 @@ export default function AudioTranscriptionPage() {
       formData.append("audio", audioBlob);
 
       try {
+        setProcessingAudio(true);
         const res = await axios.post("/api/ai/audio", formData);
         setTranscript(res.data.transcript ?? "No transcript");
       } catch (err) {
         console.error("Transcription error:", err);
         setTranscript("Transcription failed");
+      } finally {
+        setProcessingAudio(false);
       }
     };
 
@@ -56,27 +62,27 @@ export default function AudioTranscriptionPage() {
 
   const submitReceipt = async () => {
     try {
-      setLoading(true);
+      setProcessingImage(true);
       const res = await axios.post("/api/ai/image");
       setIngredients(res.data.ingredients ?? "No ingredients found");
     } catch (err) {
       console.error("Receipt submission error:", err);
       setIngredients("Receipt submission failed");
     } finally {
-      setLoading(false);
+      setProcessingImage(false);
     }
   };
 
   const submitYoutubeLink = async () => {
     try {
-      setLoading(true);
+      setProcessingVideo(true);
       const res = await axios.post("/api/ai/video");
       setCookingSequence(res.data.sequence ?? "No sequence found");
     } catch (err) {
       console.error("Link submission error:", err);
       setCookingSequence("Link submission failed");
     } finally {
-      setLoading(false);
+      setProcessingVideo(false);
     }
   };
 
@@ -94,7 +100,7 @@ export default function AudioTranscriptionPage() {
       <br />
       <p>
         밑에 녹음시작 버튼을 클릭하여 조리과정을 녹음하세요. 예를 들면
-        라면만드는 과정을 자세히 하지만 자연스럽게 말해보세요. 늑음된 내용과
+        라면만드는 과정을 자세히 하지만 자연스럽게 말해보세요. 녹음된 내용과
         이를 바탕으로 정리된 조리과정을 보여줍니다.
       </p>
       <br />
@@ -106,13 +112,21 @@ export default function AudioTranscriptionPage() {
       </button>
       <div className="mt-4 p-4 bg-gray-100 rounded">
         <b>조리 과정:</b>
-        <p>{transcript}</p>
+        {processingAudio ? (
+          <p className="animate-bounce">
+            녹음된 조리과정을 정리하고 있습니다. 잠시만 기다려주세요...
+          </p>
+        ) : (
+          <p>{transcript}</p>
+        )}
       </div>
       <br />
+      <hr className="my-12 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
       <h2 className="text-xl font-bold">영수증 사진에서 재료 추출</h2>
       <p>
         버튼을 클릭하여 영수증 사진에서 재료를 가져옵니다. 재료를 추출하는데
         다소 시간이 걸릴 수 있습니다.
+        <br />
         <br />
         <Link href="https://postfiles.pstatic.net/MjAxNzA2MDdfMTAw/MDAxNDk2Nzk0MjE3MDcy.P0oSxZG08kwmi7zURCe_ZLF233v_9MkNBt93p25Ei_4g.CVG4ucTY-0l9Krzia7xJWXfOqUB2lLnST9t8j6t4wBEg.JPEG.krishnaa/%EC%98%81%EC%88%98%EC%A6%9D2.jpg?type=w773">
           원본사진 링크
@@ -130,7 +144,7 @@ export default function AudioTranscriptionPage() {
 
       <div className="mt-4 p-4 bg-gray-100 rounded">
         <b>요리 재료:</b>
-        {loading ? (
+        {processingImage ? (
           <p className="animate-bounce">
             영수증에서 재료를 추출해오는 중입니다. 잠시만 기다려주세요...
           </p>
@@ -139,6 +153,8 @@ export default function AudioTranscriptionPage() {
         )}
       </div>
       <br />
+      <hr className="my-12 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+
       <h2 className="text-xl font-bold">유투브 영상에서 레시피 가져오기</h2>
       <p>
         버튼을 클릭하여 유투브 영상에서 레시피를 가져옵니다. 영상의 조리과정이
@@ -155,9 +171,9 @@ export default function AudioTranscriptionPage() {
       </button>
       <div className="mt-4 p-4 bg-gray-100 rounded">
         <b>만드는 순서:</b>
-        {loading ? (
+        {processingVideo ? (
           <p className="animate-bounce">
-            레시피를 가져오는 중입니다. 잠시만 기다려주세요...
+            레시피를 영상에서 추출하여 가져오는 중입니다. 잠시만 기다려주세요...
           </p>
         ) : (
           <p>{cookingSequence}</p>
