@@ -138,8 +138,41 @@ export default function AudioTranscriptionPage() {
         onClick={submitReceipt}
         className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-900"
       >
-        {"영주증 사진속에서 재료 가져오기"}
+        {"영주증 사진속에서 음식재료 가져오기"}
       </button>
+
+      <form className="mt-4">
+        <label className="block mb-2">
+          또는, 영수증 사진이 있으시면 직접 업로드하세요 (jpg, png 형식):
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                const file = e.target.files[0];
+                const formData = new FormData();
+                formData.append("image", file); // 이미지 파일을 'image' 키로 전송
+                setProcessingImage(true);
+                axios
+                  .post("/api/ai/image", formData)
+                  .then((res) => {
+                    setIngredients(
+                      res.data.ingredients ?? "No ingredients found"
+                    );
+                  })
+                  .catch((err) => {
+                    console.error("Image upload error:", err);
+                    setIngredients("Image upload failed");
+                  })
+                  .finally(() => {
+                    setProcessingImage(false);
+                  });
+              }
+            }}
+            className="block w-full mt-2"
+          />
+        </label>
+      </form>
       <br />
 
       <div className="mt-4 p-4 bg-gray-100 rounded">
@@ -169,6 +202,37 @@ export default function AudioTranscriptionPage() {
       >
         {"유투브 영상속에서 레시피 가져오기"}
       </button>
+      <form className="mt-4">
+        <label className="block mb-2">
+          또는, 원하시는 유투브 요리영상 링크를 입력하세요:
+          <input
+            type="text"
+            placeholder="https://www.youtube.com/shorts/Gktl_orbcp8"
+            className="block w-full mt-2 p-2 border rounded"
+            onChange={(e) => {
+              const videoUrl = e.target.value;
+              if (videoUrl) {
+                setProcessingVideo(true);
+                axios
+                  .post("/api/ai/video", { url: videoUrl })
+                  .then((res) => {
+                    setCookingSequence(
+                      res.data.sequence ?? "No sequence found"
+                    );
+                  })
+                  .catch((err) => {
+                    console.error("Video link submission error:", err);
+                    setCookingSequence("Video link submission failed");
+                  })
+                  .finally(() => {
+                    setProcessingVideo(false);
+                  });
+              }
+            }}
+          />
+        </label>
+      </form>
+      <br />
       <div className="mt-4 p-4 bg-gray-100 rounded">
         <b>만드는 순서:</b>
         {processingVideo ? (
