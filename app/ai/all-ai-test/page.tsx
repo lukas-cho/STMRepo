@@ -16,6 +16,7 @@ export default function AudioTranscriptionPage() {
   const [processingAudio, setProcessingAudio] = useState(false);
   const [processingImage, setProcessingImage] = useState(false);
   const [processingVideo, setProcessingVideo] = useState(false);
+  const [videoUrl, setVideoUrl] = useState("");
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -76,7 +77,9 @@ export default function AudioTranscriptionPage() {
   const submitYoutubeLink = async () => {
     try {
       setProcessingVideo(true);
-      const res = await axios.post("/api/ai/video");
+      const res = await axios.post("/api/ai/video", {
+        url: "https://www.youtube.com/shorts/T9kwD5bXq2M",
+      });
       setCookingSequence(res.data.sequence ?? "No sequence found");
     } catch (err) {
       console.error("Link submission error:", err);
@@ -86,10 +89,10 @@ export default function AudioTranscriptionPage() {
     }
   };
 
-    const submitCustomYoutubeLink = async () => {
+  const submitCustomYoutubeLink = async () => {
     try {
       setProcessingVideo(true);
-      const res = await axios.post("/api/ai/video");
+      const res = await axios.post("/api/ai/video", { url: videoUrl });
       setCookingSequence(res.data.sequence ?? "No sequence found");
     } catch (err) {
       console.error("Link submission error:", err);
@@ -214,7 +217,7 @@ export default function AudioTranscriptionPage() {
         버튼을 클릭하여 유투브 영상에서 레시피를 가져옵니다. 영상의 조리과정이
         길거나 복잡할 경우, 레시피 추출에 시간이 걸릴 수 있습니다. 버튼을 한번만
         클릭하고 기다려주세요. 원본영상:
-        https://www.youtube.com/shorts/Gktl_orbcp8
+        https://www.youtube.com/shorts/T9kwD5bXq2M
       </p>
       <br />
       <button
@@ -228,7 +231,6 @@ export default function AudioTranscriptionPage() {
           className="block mb-2 text-sm
                                           font-medium text-gray-600"
         >
-          또는, 원하시는 다른 유튜브 요리영상 링크를 입력하세요:
           <input
             type="text"
             placeholder="https://www.youtube.com/shorts/Gktl_orbcp8"
@@ -236,26 +238,8 @@ export default function AudioTranscriptionPage() {
                                        border-gray-300 rounded-md
                                        focus:outline-none focus:ring-2
                                        focus:ring-indigo-500"
-            onChange={(e) => {
-              const videoUrl = e.target.value;
-              if (videoUrl) {
-                setProcessingVideo(true);
-                axios
-                  .post("/api/ai/video", { url: videoUrl })
-                  .then((res) => {
-                    setCookingSequence(
-                      res.data.sequence ?? "No sequence found"
-                    );
-                  })
-                  .catch((err) => {
-                    console.error("Video link submission error:", err);
-                    setCookingSequence("Video link submission failed");
-                  })
-                  .finally(() => {
-                    setProcessingVideo(false);
-                  });
-              }
-            }}
+            value={videoUrl}
+            onChange={(e) => setVideoUrl(e.target.value)}
           />
         </label>
       </form>
