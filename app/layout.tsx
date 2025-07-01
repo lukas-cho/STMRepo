@@ -32,11 +32,9 @@ export default function RootLayout({
       >
         <SessionWrapper>
           <Navbar />
-  <main className="flex-grow ml-64">
+          <main className="flex-grow ml-64">
             {children}
-
           </main>
-         
           <Footer />
         </SessionWrapper>
       </body>

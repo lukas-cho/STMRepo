@@ -46,8 +46,6 @@ model mission_team_menus {
   total_sales_amount     Decimal       @default(0) @db.Decimal(12, 2)
   ingredient_cost_amount Decimal       @default(0) @db.Decimal(12, 2)
   created_at             DateTime      @default(now()) @db.Timestamptz(6)
-  sales_tip              String?
-  profit_margin          Decimal?      @default(0) @db.Decimal
   menus                  menus         @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   mission_teams          mission_teams @relation(fields: [mission_team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -61,9 +59,6 @@ model mission_teams {
   description        String?
   created_at         DateTime             @default(now()) @db.Timestamptz(6)
   contact_email      String?
-  period_start       String?
-  period_end         String?
-  country_id         Int?
   mission_team_menus mission_team_menus[]
   countries          countries?           @relation(fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_country")
 
@@ -95,9 +90,9 @@ model profiles {
   created_at DateTime @default(now()) @db.Timestamptz(6)
   name       String?
   phone      String?
-  address    String?
   city       String?
   state      String?
+  address    String?
   zip        String?
 
   @@schema("public")

@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
       }
     }
     return config
+  experimental: {
+    turbo: false // ⬅ Disable Turbopack
+    }
   },
 }
 
