@@ -9,9 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-
     "@google/genai": "^1.7.0",
-
+    "@hookform/resolvers": "^5.1.1",
     "@prisma/client": "^6.10.1",
     "@radix-ui/react-slot": "^1.2.3",
     "@stripe/stripe-js": "^7.3.1",
