@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
           : new Prisma.Decimal(0),
 
         sales_tip: sales_tip || "",
-        profit_margin: profit_margin || null,
+        profit_margin: profit_margin || "0.00", // 기본값 설정
       },
     });
 
