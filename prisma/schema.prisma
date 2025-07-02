@@ -31,7 +31,6 @@ model menus {
   menu_instruction   String?
   menu_contact_email String?
   menu_categories    menu_categories      @relation(fields: [menu_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  mission_team_menus mission_team_menus[]
 
   @@schema("public")
 }
