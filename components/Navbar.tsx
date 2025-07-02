@@ -10,6 +10,7 @@ export default function Navbar() {
   const navItems = [
     { label: "Home", href: "/" },
     { label: "AI Test All", href: "/ai/all-ai-test" },
+    { label: "Menu List", href: "/menu-list" },
     { label: "새로운 메뉴 등록", href: "/newmenu-create" },
     { label: "새로운 미션팀 등록", href: "/newmission-team-create" },
     { label: "팀별 판매 정보 입력", href: "/mission-team-menu-add" },
