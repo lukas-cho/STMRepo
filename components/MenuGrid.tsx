@@ -57,7 +57,7 @@ export default function MenuGrid({ menus, setMenus }: MenuListProps) {
             {menus.map((menu) => (
                 <Link
                     key={menu.id}
-                    href={`/menus/${menu.id}`}
+                    href={`/menu-list/${menu.id}`}
                     className="block p-5 bg-white rounded-lg shadow hover:shadow-lg hover:bg-blue-50 transition duration-200 border border-gray-200"
                 >
                 <h3 className="text-lg font-semibold text-blue-700 mb-1">
