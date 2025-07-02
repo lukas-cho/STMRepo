@@ -1,0 +1,108 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["public"]
+}
+
+model menu_categories {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  category_name String   @unique
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  menus         menus[]
+
+  @@schema("public")
+}
+
+model menus {
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  menu_name          String
+  menu_category_id   String               @db.Uuid
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  menu_ingredient    String?
+  serving_size       Int?                 @default(0) @db.SmallInt
+  total_cost         Decimal?             @default(0.00) @db.Decimal(10, 2)
+  menu_image         Bytes?
+  menu_url           String?
+  menu_instruction   String?
+  menu_contact_email String?
+  menu_categories    menu_categories      @relation(fields: [menu_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  mission_team_menus mission_team_menus[]
+
+  @@schema("public")
+}
+
+model mission_team_menus {
+  id                     String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  mission_team_id        String        @db.Uuid
+  menu_id                String        @db.Uuid
+  unit_price             Decimal       @db.Decimal(10, 2)
+  quantity_available     Int
+  quantity_sold          Int           @default(0)
+  total_sales_amount     Decimal       @default(0) @db.Decimal(12, 2)
+  ingredient_cost_amount Decimal       @default(0) @db.Decimal(12, 2)
+  created_at             DateTime      @default(now()) @db.Timestamptz(6)
+  menus                  menus         @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  mission_teams          mission_teams @relation(fields: [mission_team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("public")
+}
+
+model mission_teams {
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  year               Int
+  member_count       Int
+  description        String?
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  contact_email      String?
+  mission_team_menus mission_team_menus[]
+  countries          countries?           @relation(fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_country")
+
+  @@schema("public")
+}
+
+model userroles {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role_name  String   @unique
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  users      users[]
+
+  @@schema("public")
+}
+
+model users {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email       String    @unique
+  password    String
+  userrole_id String    @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  userroles   userroles @relation(fields: [userrole_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("public")
+}
+
+model profiles {
+  id         String   @id @default(dbgenerated("gen_random_uuid()"))
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  name       String?
+  phone      String?
+  city       String?
+  state      String?
+  address    String?
+  zip        String?
+
+  @@schema("public")
+}
+
+model countries {
+  id            Int             @id @default(autoincrement())
+  name_en       String          @unique @db.VarChar(100)
+  name_ko       String          @db.VarChar(100)
+  mission_teams mission_teams[]
+
+  @@schema("public")
+}
