@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
           ? new Prisma.Decimal(ingredient_cost_amount)
           : new Prisma.Decimal(0),
 
-        sales_tip: sales_tip || null,
+        sales_tip: sales_tip || "",
         profit_margin: profit_margin || null,
       },
     });
