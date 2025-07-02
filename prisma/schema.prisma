@@ -46,8 +46,8 @@ model mission_team_menus {
   total_sales_amount     Decimal       @default(0) @db.Decimal(12, 2)
   ingredient_cost_amount Decimal       @default(0) @db.Decimal(12, 2)
   created_at             DateTime      @default(now()) @db.Timestamptz(6)
-  menus                  menus         @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  mission_teams          mission_teams @relation(fields: [mission_team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profit_margin          Decimal       @db.Decimal(10, 2)
+  sales_tip              String?
 
   @@schema("public")
 }
