@@ -103,6 +103,7 @@ model countries {
   id            Int             @id @default(autoincrement())
   name_en       String          @unique @db.VarChar(100)
   name_ko       String          @db.VarChar(100)
+  mission_teams mission_teams[]
 
   @@schema("public")
 }
