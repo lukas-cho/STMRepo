@@ -54,26 +54,37 @@ export default function MenuGrid({ menus, setMenus }: MenuListProps) {
     }, [])
 
     return (   
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="max-w-none mx-auto px-4 py-10">
+            {/* <div className="grid gap-6 grid-cols-[repeat(auto-fill,minmax(200px,1fr))]"> */}
+            <div
+                className="grid gap-6"
+                style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}
+            >
+
             {menus.map((menu) => (
                 <Link
                     key={menu.id}
-                    href={`/menu-list/${menu.id}`}
-                    className="block p-5 bg-white rounded-lg shadow hover:shadow-lg hover:bg-blue-50 transition duration-200 border border-gray-200"
+                    href={`/menus/${menu.id}`}
+                    className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg hover:bg-blue-50 transition duration-300 p-6"
                 >
-                <h3 className="text-lg font-semibold text-blue-700 mb-1">
+
+                <h3 className="text-xl font-bold text-blue-700 mb-1">
                         {menu.menu_name}
                 </h3>
-                <p className="text-sm text-gray-600 line-clamp-2">
-                    
+
+                <p className="text-sm text-gray-500">                    
                     Category: {menu.menu_categories?.category_name ?? 'Unknown category'}
                 </p>
+
                 <p className="text-xs text-gray-400 mt-2">
                     Total Sales: {/* {menu.total_sales_amount} */}
                     Total Items Sold: {/*{menu.quantity_sold} */}
                 </p>
                 </Link>
             ))}
+            
+            </div>
+
         </div>
     );
 }
