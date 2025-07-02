@@ -5,6 +5,12 @@ import { notFound } from "next/navigation";
 import MenuDetailClient from "@/components/menuDetailClient";
 import { fetchSalesAndQuantityData } from "@/app/api/fetchSalesData/route";
 
+function hexToBase64(hexString: string): string {
+  const cleanHex = hexString.replace(/^\\x/, ""); // \x 제거
+  const buffer = Buffer.from(cleanHex, "hex");
+  return buffer.toString("base64");
+}
+
 
 export default async function MenuDetailPage({ params }: { params: { id: any } }) {
     const { data: menu, error } = await supabase
@@ -17,6 +23,10 @@ export default async function MenuDetailPage({ params }: { params: { id: any } }
         return notFound();
     }
 
+    const base64Image = hexToBase64(menu.menu_image);
+    const imageSrc = `data:image/jpeg;base64,${base64Image}`;
+
+
     const { salesData, quantityData } = await fetchSalesAndQuantityData(menu.id);
 
     return (
@@ -24,17 +34,17 @@ export default async function MenuDetailPage({ params }: { params: { id: any } }
       <h1 className="text-4xl font-bold">{menu.menu_name}</h1>
       <p className="text-gray-600 mt-2">단기선교에 후원해 주셔서 감사합니다.</p>
 
-      {menu.menu_image_url && (
-        <div className="mt-6">
-          <Image
-            src={menu.menu_image_url}
-            alt="메뉴 이미지"
-            width={1000}
-            height={400}
-            className="rounded-lg object-cover mx-auto"
-          />
-        </div>
-      )}
+      {imageSrc && (
+      <div className="mt-6">
+        <img
+          src={imageSrc}
+          alt="메뉴 이미지"
+          width={500}
+          height={200}
+          className="rounded-lg object-cover mx-auto"
+        />
+      </div>
+    )}
 
      
       <MenuDetailClient menu={menu} salesData={salesData} quantityData={quantityData} />
