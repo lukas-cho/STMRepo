@@ -1,3 +1,4 @@
+
 import { supabase } from "@/lib/supabaseClient";
 
 export async function fetchSalesAndQuantityData(menuId: string) {

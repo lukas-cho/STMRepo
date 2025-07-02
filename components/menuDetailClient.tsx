@@ -1,5 +1,6 @@
 'use client';
 
+
 import { useState } from "react";
 import IngredientSectionComponent from "./ingredientSectionComponent";
 import SalesQuantityGraphs from "./salesQuantityGraphs";
