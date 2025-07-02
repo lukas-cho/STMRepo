@@ -4,11 +4,10 @@ import { prisma } from '@/lib/prismaClient'
 
 export async function GET() {
 
-  const menug = await prisma.menus.findMany({
-    include: { menu_categories: true },
-    orderBy: { menu_name: 'asc' }
+  const categories = await prisma.menu_categories.findMany({
+    orderBy: { category_name: 'asc' }
   });
 
-  return NextResponse.json(menug);
+  return NextResponse.json(categories);
 
 }
