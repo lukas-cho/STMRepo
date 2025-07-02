@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import MenuDetailClient from "@/components/menuDetailClient";
 import { fetchSalesAndQuantityData } from "@/app/api/fetchSalesData/route";
 
-function hexToBase64(hexString: string): string {
+function hexToBase64(hexString: string | null | undefined): string | null {
+  if (!hexString) return null;
   const cleanHex = hexString.replace(/^\\x/, ""); // \x 제거
   const buffer = Buffer.from(cleanHex, "hex");
   return buffer.toString("base64");
