@@ -11,21 +11,24 @@ type MissionTeamCreateInput = {
   period_end?: string | null;
 };
 export async function GET() {
-  try {
-    const teams = await prisma.mission_teams.findMany({
-      include: {
-        countries: {
-          select: {
-            name_ko: true,
-            name_en: true,
-          },
-        },
-      },
-    });
-    return NextResponse.json(teams);
-  } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch teams" }, { status: 500 });
-  }
+  // try {
+  //   const teams = await prisma.mission_teams.findMany({
+  //     include: {
+  //       countries: {
+  //         select: {
+  //           name_ko: true,
+  //           name_en: true,
+  //         },
+  //       },
+  //     },
+  //   });
+  //   return NextResponse.json(teams);
+  // } catch (error) {
+  //   return NextResponse.json(
+  //     { error: "Failed to fetch teams" },
+  //     { status: 500 }
+  //   );
+  // }
 }
 export async function POST(req: Request) {
   try {
@@ -34,7 +37,9 @@ export async function POST(req: Request) {
     const newTeam = await prisma.mission_teams.create({
       data: {
         country_id:
-          typeof body.country === "string" ? parseInt(body.country) : body.country,
+          typeof body.country === "string"
+            ? parseInt(body.country)
+            : body.country,
         year: body.year,
         member_count: body.member_count,
         description: body.description ?? null,
