@@ -6,6 +6,7 @@ import MenuGrid from '@/components/MenuGrid'
 type MenuItem = {
   id: string;
   menu_name: string;
+  menu_image: Buffer;
   menu_category_id: string;
   menu_categories: {
     category_name: string;
@@ -55,8 +56,6 @@ export default function MenuListPage() {
         </div>
 
       {/* 메뉴 카드 그리드 */}
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"> */}
-      {/* <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}> */}
       <div>
         <MenuGrid menus={filteredMenus} setMenus={setMenus} />        
       </div>

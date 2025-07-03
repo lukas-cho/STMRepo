@@ -7,18 +7,19 @@ import { useEffect, useState } from 'react';
 interface Menu {
   id: string;
   menu_name: string;
+  menu_image: Buffer;
   menu_category_id: string;
   menu_categories: {
     category_name: string;
   }
 }
 
-interface MenuListProps {
+interface MenuGridProps {
     menus: Menu[];
-    setMenus: React.Dispatch<React.SetStateAction<any[]>>;
+    setMenus: React.Dispatch<React.SetStateAction<Menu[]>>;
 }
 
-export default function MenuGrid({ menus, setMenus }: MenuListProps) {
+export default function MenuGrid({ menus, setMenus }: MenuGridProps) {
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -68,6 +69,12 @@ export default function MenuGrid({ menus, setMenus }: MenuListProps) {
                     className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg hover:bg-blue-50 transition duration-300 p-6"
                 >
 
+                <img
+                    src={menu.menu_image}
+                    alt={menu.menu_name}
+                    className="w-full h-40 object-cover rounded-md mb-4"
+                />
+                
                 <h3 className="text-xl font-bold text-blue-700 mb-1">
                         {menu.menu_name}
                 </h3>
