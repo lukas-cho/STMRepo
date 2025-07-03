@@ -64,7 +64,7 @@ export default function MenuGrid({ menus, setMenus }: MenuListProps) {
             {menus.map((menu) => (
                 <Link
                     key={menu.id}
-                    href={`/menus/${menu.id}`}
+                    href={`/menu/${menu.id}`}
                     className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg hover:bg-blue-50 transition duration-300 p-6"
                 >
 
