@@ -13,9 +13,12 @@ export default function HomePage() {
           판매 메뉴와 판매 현황을 공유하고, 판매 현황을 분석할 수 있는
           공간입니다.
         </div>
+        <img
+          src="/screenshot.png"
+          className="mx-auto mt-6 w-full -48 object-cover rounded-2xl shadow-lg"
+        />
         <iframe
-          width="420"
-          height="315"
+          className="mt-6 w-full h-64 md:h-96 rounded-lg shadow-lg"
           src="https://youtube.com/embed/jT2J-zpf_CM"
         ></iframe>
       </section>

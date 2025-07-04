@@ -5,6 +5,7 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
+  ChartNoAxesCombined,
   Command,
   Frame,
   GalleryVerticalEnd,
@@ -91,6 +92,26 @@ const data = {
         },
       ],
     },
+    {
+      title: "판매현황 분석조회",
+      url: "/",
+      icon: ChartNoAxesCombined,
+      items: [
+        {
+          title: "선교팀별 판매현황",
+          url: "mission-team-menu-analysis",
+        },
+        {
+          title: "메뉴별 판매현황 등록",
+          url: "mission-team-menu-analysis",
+        },
+        {
+          title: "년도별 판매현황 등록",
+          url: "mission-team-menu-analysis",
+        },
+      ],
+    },
+
     {
       title: "새로운 등록",
       url: "/",
