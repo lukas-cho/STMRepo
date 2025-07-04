@@ -74,26 +74,26 @@ const data = {
     },
     {
       title: "AI 입력 도우미",
-      url: "#",
+      url: "/ai",
       icon: Bot,
       items: [
         {
           title: "음성 입력",
-          url: "ai/all-ai-test",
+          url: "/all-ai-test",
         },
         {
           title: "사진 입력",
-          url: "ai/all-ai-test",
+          url: "/all-ai-test",
         },
         {
           title: "영상 입력",
-          url: "ai/all-ai-test",
+          url: "/all-ai-test",
         },
       ],
     },
     {
       title: "새로운 등록",
-      url: "#",
+      url: "/",
       icon: BookOpen,
       items: [
         {
