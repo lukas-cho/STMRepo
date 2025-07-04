@@ -1,8 +1,7 @@
-
 import { supabase } from "@/lib/supabaseClient";
 
 export async function fetchSalesAndQuantityData(menuId: string) {
-
+  /*
     type MissionTeamMenuRow = {
         total_sales_amount: number;
         ingredient_cost_amount: number;
@@ -72,4 +71,5 @@ export async function fetchSalesAndQuantityData(menuId: string) {
   }));
 
   return { salesData, quantityData };
+  */
 }
