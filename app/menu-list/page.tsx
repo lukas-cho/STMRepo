@@ -1,33 +1,34 @@
-'use client'
-import { useEffect, useState } from "react"
-import CategorySelect from '@/components/CategorySelect';
-import MenuGrid from '@/components/MenuGrid'
+"use client";
+import { useEffect, useState } from "react";
+import CategorySelect from "@/components/CategorySelect";
+import MenuGrid from "@/components/MenuGrid";
 
 type MenuItem = {
   id: string;
   menu_name: string;
-  menu_image: Buffer;
+  menu_image: string;
   menu_category_id: string;
   menu_categories: {
     category_name: string;
-  }
+  };
 };
 
 export default function MenuListPage() {
-
   // const [year, setYear] = useState("2025")
   const [menus, setMenus] = useState<MenuItem[]>([]);
   const [categoryId, setCategoryId] = useState("All");
 
   // 필터 적용
-  const filteredMenus = categoryId === "All"
-  ? menus
-  : menus.filter(menu => menu.menu_category_id === categoryId);
+  const filteredMenus =
+    categoryId === "All"
+      ? menus
+      : menus.filter((menu) => menu.menu_category_id === categoryId);
 
   useEffect(() => {
-    const url = categoryId === "All"
-      ? "/api/menus"
-      : `/api/menus?categoryId=${categoryId}`;
+    const url =
+      categoryId === "All"
+        ? "/api/menus"
+        : `/api/menus?categoryId=${categoryId}`;
 
     fetch(url)
       .then((res) => res.json())
@@ -51,15 +52,14 @@ export default function MenuListPage() {
         </select> */}
 
       {/* 카테고리 드롭다운 */}
-        <div>
-          <CategorySelect categoryId={categoryId} setCategoryId={setCategoryId} />
-        </div>
+      <div>
+        <CategorySelect categoryId={categoryId} setCategoryId={setCategoryId} />
+      </div>
 
       {/* 메뉴 카드 그리드 */}
       <div>
-        <MenuGrid menus={filteredMenus} setMenus={setMenus} />        
+        <MenuGrid menus={filteredMenus} setMenus={setMenus} />
       </div>
-
     </div>
-  )
+  );
 }
