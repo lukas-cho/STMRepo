@@ -2,7 +2,7 @@
 
 
 import Link from "next/link";
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 interface Menu {
   id: string;
@@ -21,38 +21,43 @@ interface MenuGridProps {
 
 export default function MenuGrid({ menus, setMenus }: MenuGridProps) {
 
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
+    const [selectedYear, setSelectedYear] = useState("");
 
-    useEffect(() => {
 
-        setIsLoading(true);
-
-        const fetchData = async () => {
+    const fetchData = async () => {
+        try {
             const res = await fetch('/api/menus'); // assumes API route is at /api/categories
             const data = await res.json();
             setMenus(data);
+        } catch (err)  {
+            setError(err instanceof Error ? err.message : 'Failed to load data');
+        } finally {
             setIsLoading(false);
-        
-            if (isLoading) {
-                return <div className="p-6 bg-white rounded-xl shadow text-center">Loading menu data</div>
-            };
-
-            if (error) {
-                return <div className="p-6 bg-white rounded-xl shadow text-center text-red-600">Error loading menu data: {error}</div>;
-            };
-
-            if ((menus as Menu[]).length === 0) {
-                return (
-                    <div className="p-6 bg-white rounded-xl shadow text-center">
-                        No menu data are available.
-                    </div>
-                )
-            }}        
-        
+        }
+    };
+    
+    useEffect(() => {
         fetchData();
-        
-    }, [])
+    }, []);
+
+    // Render loading state
+    if (isLoading) {
+        return <div className="p-6 bg-white rounded-xl shadow text-center">Loading menu data ...</div>
+    };
+
+    if (error) {
+        return <div className="p-6 bg-white rounded-xl shadow text-center text-red-600">Error loading menu data: {error}</div>;
+    };
+
+    if ((menus as Menu[]).length === 0) {
+        return (
+            <div className="p-6 bg-white rounded-xl shadow text-center">
+                No menu data are available.
+            </div>
+        )
+    }
 
     return (   
         <div className="max-w-none mx-auto px-4 py-10">
@@ -84,7 +89,7 @@ export default function MenuGrid({ menus, setMenus }: MenuGridProps) {
                 </p>
 
                 <p className="text-xs text-gray-400 mt-2">
-                    Total Sales: {/* {menu.total_sales_amount} */}
+                    Total Sales: {/*menu.total_cost*/}
                     Total Items Sold: {/*{menu.quantity_sold} */}
                 </p>
                 </Link>

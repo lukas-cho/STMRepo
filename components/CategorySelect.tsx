@@ -31,7 +31,7 @@ export default function CategorySelect({
 
   return (
     <div className="p-6 max-w-xl mx-auto flex flex-col items-center">
-      <h3 className="text-4x1 font-normal mb-4">은혜 가득하고 사랑이 듬뿍 담긴</h3>
+      <h3 className="text-4x1 font-normal mb-4">❤️† 은혜 가득하고 사랑이 듬뿍 담긴</h3>
       <h1 className="text-5xl font-bold mb-4">선교후원 바자회 역대 메뉴</h1>
       
       <select
