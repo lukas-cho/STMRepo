@@ -44,7 +44,7 @@ export default function RootLayout({
             <SidebarProvider>
               <AppSidebar />
               <main>
-                <ModeToggle />
+                {/* <ModeToggle /> */}
                 <SidebarTrigger />
 
                 {children}
