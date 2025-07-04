@@ -7,12 +7,12 @@ import MenuDetailClient from "@/components/menuDetailClient";
 export default async function MenuDetailPage({
   params,
 }: {
-  params: { id: any };
+  params: Promise<{ id: string }>;
 }) {
   const { data: menu, error } = await supabase
     .from("menus")
     .select("*")
-    .eq("id", params.id)
+    .eq("id", (await params).id)
     .single();
 
   if (!menu || error) {
