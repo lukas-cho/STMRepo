@@ -31,7 +31,9 @@ export default function CategorySelect({
 
   return (
     <div className="p-6 max-w-xl mx-auto flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">선교후원 바자회 역대 메뉴</h1>
+      <h3 className="text-4x1 font-normal mb-4">❤️† 은혜 가득하고 사랑이 듬뿍 담긴</h3>
+      <h1 className="text-5xl font-bold mb-4">선교후원 바자회 역대 메뉴</h1>
+      
       <select
         className="border p-2 rounded mb-4 w-full"
         value={categoryId}
@@ -44,6 +46,7 @@ export default function CategorySelect({
           </option>
         ))}
       </select>
+      <h2 className="text-4x1 font-normal mb-4">원하시는 메뉴를 선택하시면 해당 메뉴의 자세한 설명을 보실수 있습니다.</h2>
     </div>
   );
 }
