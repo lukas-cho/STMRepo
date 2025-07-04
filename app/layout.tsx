@@ -4,7 +4,11 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SessionWrapper from "@/components/SessionWrapper";
- 
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,16 +30,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
-          <Navbar />
-          <main className="flex-grow ml-64">
-            {children}
-          </main>
-          <Footer />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              <AppSidebar />
+              <main>
+                <ModeToggle />
+                <SidebarTrigger />
+
+                {children}
+              </main>
+            </SidebarProvider>{" "}
+          </ThemeProvider>
         </SessionWrapper>
       </body>
     </html>
