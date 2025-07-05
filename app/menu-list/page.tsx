@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import FilterSelect from '@/components/FilterSelect';
 import MenuGrid from '@/components/MenuGrid'
+import { set } from "zod";
 
 type MenuItem = {
   id: string;
@@ -10,7 +11,7 @@ type MenuItem = {
   menu: { 
     id: string;
     menu_name: string;
-    menu_image: Buffer;
+    menu_image: string;
     menu_category_id: string;
     menu_categories: {
       category_name: string;
@@ -27,14 +28,21 @@ const [selectedYear, setSelectedYear] = useState<string>("All");
 // 메뉴 데이터 상태
 const [menus, setMenus] = useState<MenuItem[]>([]);
 
+// 로딩 상태
+const [loading, setLoading] = useState(true);
+
 // 메뉴 데이터 필터링
 useEffect(() => {
+  setLoading(true);
   fetch(`/api/filtered-menus?year=${selectedYear}&categoryId=${categoryId}`)
     .then((res) => res.json())
-    .then(setMenus);
+    .then((data) => {
+        setMenus(data);
+        setLoading(false)})
 }, [selectedYear, categoryId]);
 
 return (
+
   <div className="max-w-7xl mx-auto px-4 py-10">
     {/* 연도 드롭다운 */}
     {/* 카테고리 드롭다운 */}
@@ -48,7 +56,7 @@ return (
     {/* 메뉴 카드 그리드 */}
     <div>
       <MenuGrid 
-        menus={menus} setMenus={setMenus} 
+        menus={menus} setMenus={setMenus} loading={loading}
       />        
     </div>
 

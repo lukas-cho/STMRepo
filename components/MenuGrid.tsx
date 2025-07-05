@@ -11,7 +11,7 @@ interface Menu {
   menu: { 
     id: string;
     menu_name: string;
-    menu_image: Buffer;
+    menu_image: string;
     menu_category_id: string;
     menu_categories: {
         category_name: string;
@@ -21,9 +21,26 @@ interface Menu {
 interface MenuGridProps {
     menus: Menu[];
     setMenus: React.Dispatch<React.SetStateAction<Menu[]>>;
+    loading: boolean;
 }
 
-export default function MenuGrid({ menus, setMenus }: MenuGridProps) {
+function formatUSD(amount: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(amount);
+}
+
+export default function MenuGrid({ menus, setMenus, loading }: MenuGridProps) {
+
+
+    if (loading) {
+       return (
+          <div className="p-6 bg-white rounded-xl shadow text-center">
+            Loading menu data...
+        </div>
+        );
+    }
 
     if (!menus || menus.length === 0) {
     return (
@@ -58,14 +75,14 @@ export default function MenuGrid({ menus, setMenus }: MenuGridProps) {
                         {item.menu.menu_name}
                 </h3>
 
-                <p className="text-sm text-gray-500">                    
+                <p className="text-sm text-gray-900">                    
                     Category: {item.menu.menu_categories?.category_name ?? 'Unknown category'}
                 </p>
 
-                <p className="text-xs text-gray-400 mt-2">
-                    Total Sales: {item.total_sales_amount}
+                <p className="text-xs text-gray-900 mt-2">
+                    Total Sales: {formatUSD(item.total_sales_amount)}
                 </p>
-                <p className="text-xs text-gray-400 mt-2">
+                <p className="text-xs text-gray-900 mt-2">
                     Total Items Sold: {item.quantity_sold}
                 </p>
                 </Link>
