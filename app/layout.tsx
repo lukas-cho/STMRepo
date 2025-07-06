@@ -51,6 +51,7 @@ export default function RootLayout({
                 {children}
               </main>
             </SidebarProvider>{" "}
+            <Footer />
           </ThemeProvider>
         </SessionWrapper>
       </body>

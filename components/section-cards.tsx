@@ -17,37 +17,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export function SectionCards() {
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription className="text-xl font-extrabold">
-            바자회 후원 성도
-          </CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            75,840명
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <IconTrendingUp />
-              +5.7%
-            </Badge>
-            <IconUsers size={42} strokeWidth={2} />
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            작년 대비 올해 5.7% 증가{" "}
-            <IconTrendingUp className="size-4" color="green" />
-          </div>
-          <div className="text-muted-foreground">
-            AI 분석: 신규 성도와 재참여율 증가
-          </div>
-        </CardFooter>
-      </Card>
-      <Card className="@container/card">
+      <Link href="/menu-list" className="block">
+        <Card className="@container/card overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl cursor-pointer">
+          <CardHeader>
+            <CardDescription className="text-xl font-extrabold">
+              바자회 후원 성도
+            </CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+              75,840명
+            </CardTitle>
+            <CardAction>
+              <Badge variant="outline">
+                <IconTrendingUp />
+                +5.7%
+              </Badge>
+              <IconUsers size={42} strokeWidth={2} />
+            </CardAction>
+          </CardHeader>
+          <CardFooter className="flex-col items-start gap-1.5 text-sm">
+            <div className="line-clamp-1 flex gap-2 font-medium">
+              작년 대비 올해 5.7% 증가{" "}
+              <IconTrendingUp className="size-4" color="green" />
+            </div>
+            <div className="text-muted-foreground">
+              AI 분석: 신규 성도와 재참여율 증가
+            </div>
+          </CardFooter>
+        </Card>
+      </Link>
+      <Card className="@container/card bg-white shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl">
         <CardHeader>
           <CardDescription className="text-xl font-extrabold">
             바자회 판매 건수
