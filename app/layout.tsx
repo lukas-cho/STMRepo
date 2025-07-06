@@ -20,8 +20,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: " ShortTerm Mission",
-  description: "My first Next.js project",
+  title: "단기선교 바자회 노하우 공유 플랫폼",
+  description:
+    "단기선교 바자회 판매 메뉴와 판매 현황을 공유하고, 판매 현황을 분석할 수 있는 공간입니다.",
 };
 
 export default function RootLayout({
