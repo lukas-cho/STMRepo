@@ -36,7 +36,7 @@ export default function MenuListPage() {
   }, [categoryId]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full max-w-7xl mx-auto px-4 py-10">
       {/* 연도 드롭다운 */}
       {/* <select
           value={year}
@@ -57,7 +57,7 @@ export default function MenuListPage() {
       </div>
 
       {/* 메뉴 카드 그리드 */}
-      <div>
+      <div className="w-full mt-6">
         <MenuGrid menus={filteredMenus} setMenus={setMenus} />
       </div>
     </div>

@@ -15,8 +15,10 @@ export default function HomePage() {
     <main className="min-h-screen bg-gray-100 text-gray-800">
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            단기선교 바자회 노하우 공유 플랫폼
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            단기선교 바자회
+            <br />
+            노하우 공유 플랫폼
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-4">
             이 플랫폼은 단기선교 바자회에 참여하는 선교팀들이 판매 메뉴와 판매
@@ -29,7 +31,7 @@ export default function HomePage() {
           <div className="flex justify-center mt-8">
             <div className="mt-8">
               <a
-                href="#start"
+                href="/menu-list"
                 className="inline-block bg-indigo-600 text-white text-base md:text-lg font-medium px-6 py-3 rounded-full shadow hover:bg-indigo-700 transition"
               >
                 역대 메뉴 보기
@@ -45,10 +47,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        {/* <img
-          src=""
-          className="mx-auto mt-6 w-full -48 object-cover rounded-2xl shadow-lg"
-        /> */}
         <div className="max-w-2lg w-full flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
