@@ -98,12 +98,33 @@ const data = {
       items: [
         {
           title: "새로운 메뉴 등록",
-          url: "mission-team-menu-add",
+          url: "newmenu-create",
         },
         {
           title: "새로운 선교팀 등록",
           url: "newmission-team-create",
         },
+        ,
+        {
+          title: "팀별 판매 메뉴 및 매출 정보 입력",
+          url: "mission-team-menu-add",
+        },
+      ],
+    },
+      {
+      title: "선교 자료 분석 조회",
+      url: "#",
+      icon: BookOpen,
+      items: [
+        {
+          title: "선교팀 분석 자료",
+          url: "mission-team-menu-analysis",
+        },
+        {
+          title: "바자회 메뉴 분석 자료",
+          url: "mission-team-menu-analysis",
+        },
+     
       ],
     },
     {

@@ -76,7 +76,7 @@ export default function MissionTeamSalesChart({ year }: { year: number }) {
         </div>
       )}
 
-      <ResponsiveContainer width="100%" height={250}>
+       <ResponsiveContainer width="100%" height={250} minWidth={900}>
         <BarChart
           data={salesData.length === 0 ? dummyData : salesData}
           barCategoryGap={30}
