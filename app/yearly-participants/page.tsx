@@ -29,8 +29,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A stacked bar chart with a legend";
-export const description2 = "An area chart with axes";
+//export const description = "A stacked bar chart with a legend";
+//export const description2 = "An area chart with axes";
 
 const chartData2 = [
   { year: "2020", morning: 1860, afternoon: 800 },
