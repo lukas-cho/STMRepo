@@ -27,7 +27,7 @@ export default async function MenuDetailPage({
   }
 
   const base64Image = hexToBase64(menu.menu_image);
-  const imageSrc = `data:image/jpeg;base64,${base64Image}`;
+  const imageSrc = base64Image ? `data:image/jpeg;base64,${base64Image}` : null;
 
      const { salesData, quantityData } = await fetchSalesAndQuantityData(menu.id);
   // const { salesData, quantityData } = { salesData: [], quantityData: [] };
