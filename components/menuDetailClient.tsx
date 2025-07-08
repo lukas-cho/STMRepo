@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import IngredientSectionComponent from "./ingredientSectionComponent";
 import SalesQuantityGraphs from "./salesQuantityGraphs";
 
@@ -26,6 +26,32 @@ type QuantityData = {
   remaining: number;
 };
 
+
+function toEmbedUrl(url: string): string {
+  try {
+    const parseUrl = new URL(url);
+    let videoId = "";
+
+    if (parseUrl.hostname.includes("youtu.be")) {
+      videoId = parseUrl.pathname.slice(1);
+    } else if (parseUrl.hostname.includes("youtube.com")) {
+      const params = new URLSearchParams(parseUrl.search);
+      videoId = parseUrl.searchParams.get("v") || "";
+    }
+
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}`; // 유효한 YouTube URL이 아니면 원본 URL 반환
+    }
+
+     return url;
+  } catch {
+        // url 파싱 실패 시 원본 반환
+        return url;
+
+  }
+
+}
+
 export default function MenuDetailClient({
   menu,
   salesData,
@@ -35,7 +61,48 @@ export default function MenuDetailClient({
   salesData: SalesData[];
   quantityData: QuantityData[];
 }) {
-    // const [selectedTab, setSelectedTab] = useState(tabs[0]);
+    const [activeTab, setActiveTab] = useState(tabs[0].id)
+
+    useEffect(() => {
+      function onScroll() {
+        const offset = 150;
+        const threshold = 80;
+        const scrollPosition = window.scrollY + offset;
+
+        const scrollBottom = window.scrollY + window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+
+        let currentId = tabs[0].id;
+
+        if (docHeight - scrollBottom < 100) {
+          currentId = tabs[tabs.length - 1].id;
+        } else {
+          for (let i = 0; i < tabs.length; i++) {
+            const tab = tabs[i];
+            const section = document.getElementById(tab.id);
+            if (!section) continue;
+
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+
+            if (
+              scrollPosition >= sectionTop - threshold &&
+              scrollPosition < sectionTop + sectionHeight - threshold
+            ) {
+              currentId = tab.id;
+              break;
+            }
+          }
+        }
+
+  setActiveTab(currentId);
+}
+
+      window.addEventListener('scroll', onScroll);
+      return () => {
+        window.removeEventListener('scroll', onScroll);
+      }
+    }, [])
 
 
 return (
@@ -46,7 +113,12 @@ return (
                   <a
                   key={tab.id}
                   href={`#${tab.id}`}
-                  className="px-5 py-2 rounded-full border font-semibold shadow-sm transition bg-gray-100 text-gray-800 hover:bg-gray-300"
+                  className={
+                    `px-5 py-2 rounded-full border font-semibold shadow-sm transition ` +
+                    (activeTab === tab.id
+                      ? "bg-indigo-600 text-white border" 
+                      : "bg-gray-100 text-gray-800 hover:bg-gray-300 border-gray-300")
+                  }
                   >
                     {tab.label}
                   </a>
@@ -98,10 +170,11 @@ return (
 
         <section id="video" className="scroll-mt-28 mb-28">
           <h2 className="text-2xl font-bold mb-6 text-center">조리 영상 및 힌트</h2>
-          {menu.video_url ? (
+          {menu.menu_url && menu.menu_url.trim() !== "" ? (
             <iframe
-              src={menu.video_url}
-              className="w-full h-64"
+              src={toEmbedUrl (menu.menu_url)}
+              className="w-full h-110 shadow"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           ) : (
