@@ -1,65 +1,65 @@
-'use client'
-import { useEffect, useState } from "react"
-import FilterSelect from '@/components/FilterSelect';
-import MenuGrid from '@/components/MenuGrid'
-import { set } from "zod";
+"use client";
+import { useEffect, useState } from "react";
+import CategorySelect from "@/components/CategorySelect";
+import MenuGrid from "@/components/MenuGrid";
 
 type MenuItem = {
   id: string;
-  total_sales_amount: number;
-  quantity_sold: number;
-  menu: { 
-    id: string;
-    menu_name: string;
-    menu_image: string;
-    menu_category_id: string;
-    menu_categories: {
-      category_name: string;
-    }
-  }
+  menu_name: string;
+  menu_image: Buffer;
+  menu_category_id: string;
+  menu_categories: {
+    category_name: string;
+  };
 };
 
 export default function MenuListPage() {
+  // const [year, setYear] = useState("2025")
+  const [menus, setMenus] = useState<MenuItem[]>([]);
+  const [categoryId, setCategoryId] = useState("All");
 
-// Category and Year selections
-const [categoryId, setCategoryId] = useState<string>("All");
-const [selectedYear, setSelectedYear] = useState<string>("All");
+  // 필터 적용
+  const filteredMenus =
+    categoryId === "All"
+      ? menus
+      : menus.filter((menu) => menu.menu_category_id === categoryId);
 
-// 메뉴 데이터 상태
-const [menus, setMenus] = useState<MenuItem[]>([]);
+  useEffect(() => {
+    const url =
+      categoryId === "All"
+        ? "/api/menus"
+        : `/api/menus?categoryId=${categoryId}`;
 
-// 로딩 상태
-const [loading, setLoading] = useState(true);
+    fetch(url)
+      .then((res) => res.json())
+      .then(setMenus);
+  }, [categoryId]);
 
-// 메뉴 데이터 필터링
-useEffect(() => {
-  setLoading(true);
-  fetch(`/api/filtered-menus?year=${selectedYear}&categoryId=${categoryId}`)
-    .then((res) => res.json())
-    .then((data) => {
-        setMenus(data);
-        setLoading(false)})
-}, [selectedYear, categoryId]);
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      {/* 연도 드롭다운 */}
+      {/* <select
+          value={year}
+          onChange={e => setYear(e.target.value)}
+          className="border rounded px-3 py-2"
+        >
+          <option value="All">All Years</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <div>
+            <YearSelect yearId={yearId} setYearId={setYearId} />
+          </div>
+        </select> */}
 
-return (
-
-  <div className="max-w-7xl mx-auto px-4 py-10">
-    {/* 연도 드롭다운 */}
-    {/* 카테고리 드롭다운 */}
+      {/* 카테고리 드롭다운 */}
       <div>
-        <FilterSelect 
-          selectedYear={selectedYear} setSelectedYear={setSelectedYear}
-          categoryId={categoryId} setCategoryId={setCategoryId} 
-        />
+        <CategorySelect categoryId={categoryId} setCategoryId={setCategoryId} />
       </div>
 
-    {/* 메뉴 카드 그리드 */}
-    <div>
-      <MenuGrid 
-        menus={menus} setMenus={setMenus} loading={loading}
-      />        
+      {/* 메뉴 카드 그리드 */}
+      <div>
+        <MenuGrid menus={filteredMenus} setMenus={setMenus} />
+      </div>
     </div>
-
-  </div>
-)
+  );
 }
