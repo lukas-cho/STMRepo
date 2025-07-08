@@ -60,7 +60,7 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "About",
+          title: "Home",
           url: "/",
         },
         {
@@ -132,7 +132,7 @@ const data = {
         },
       ],
     },
-      {
+    {
       title: "선교 자료 분석 조회",
       url: "#",
       icon: BookOpen,
@@ -145,7 +145,6 @@ const data = {
           title: "바자회 메뉴 분석 자료",
           url: "mission-team-menu-analysis",
         },
-     
       ],
     },
     {
