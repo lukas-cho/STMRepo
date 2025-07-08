@@ -134,8 +134,13 @@ return (
           </section>
 
           <section id="ingredients" className="scroll-mt-28 mb-28">
-            <h2 className="text-2xl font-bold mb-6 text-center">재료 및 준비물</h2>
-            <IngredientSectionComponent ingredientText={menu.menu_ingredient || ''} />
+            <h2 className="text-2xl font-bold mb-6 text-center">재료 및 준비물</h2> 
+            {menu.serving_size && (
+              <p className="text-center text-gray-500 text-sm mb-6">
+                ({menu.serving_size}인분)
+              </p>
+            )}
+            <IngredientSectionComponent ingredientText={menu.menu_ingredient || ''}/>
           </section>
 
         <section id="instructions" className="scroll-mt-28 mb-28">
