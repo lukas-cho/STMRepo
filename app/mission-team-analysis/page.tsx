@@ -107,7 +107,13 @@ export default function Page() {
         {viewMode === 'member' ? (
           <div className="w-[400px] h-[420px] mx-auto">
             <h2 className="text-xl font-semibold mb-3">📊 선교팀 인원수</h2>
-            <MissionTeamMemberPieChart data={memberData} />
+         <MissionTeamMemberPieChart
+  data={memberData.map(d => ({
+    ...d,
+    startdate: '',
+    enddate: '',
+  }))}
+/>
           </div>
         ) : (
           <div className="w-[400px] h-[420px] mx-auto">
