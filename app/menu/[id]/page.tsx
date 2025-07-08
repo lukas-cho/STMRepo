@@ -2,7 +2,6 @@ import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import MenuDetailClient from "@/components/menuDetailClient";
-//import { fetchSalesAndQuantityData } from "@/app/api/fetchSalesData/route";
 
 export default async function MenuDetailPage({
   params,

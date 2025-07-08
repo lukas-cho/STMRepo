@@ -138,7 +138,7 @@ const data = {
       items: [
         {
           title: "선교팀 분석 자료",
-          url: "mission-team-menu-analysis",
+          url: "mission-team-analysis",
         },
         {
           title: "바자회 메뉴 분석 자료",
