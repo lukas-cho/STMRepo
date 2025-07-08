@@ -125,7 +125,6 @@ const data = {
           title: "새로운 선교팀 등록",
           url: "newmission-team-create",
         },
-        ,
         {
           title: "팀별 판매 메뉴 및 매출 정보 입력",
           url: "mission-team-menu-add",
