@@ -13,8 +13,6 @@ import {
   Map,
   PieChart,
   Settings2,
-  BarChart,
-  Database ,
   SquareTerminal,
 } from "lucide-react";
 
@@ -136,11 +134,11 @@ const data = {
     {
       title: "선교 자료 분석 조회",
       url: "#",
-      icon: BarChart,
+      icon: BookOpen,
       items: [
         {
           title: "선교팀 분석 자료",
-          url: "mission-team-analysis",
+          url: "mission-team-menu-analysis",
         },
         {
           title: "바자회 메뉴 분석 자료",
