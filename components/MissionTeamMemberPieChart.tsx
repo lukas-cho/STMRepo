@@ -93,7 +93,7 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
 // }
 
   return (
-    <div className="max-w-7xl mx-auto p-4">
+    <div >
       <div className="flex flex-row gap-8" style={{ alignItems: 'flex-start' }}>
         {/* 차트 영역 */}
         <div style={{ width: 400, height: 400, flexShrink: 0 }}>
@@ -121,7 +121,7 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
         {/* 테이블 영역 */}
         <div
           className="border border-gray-300 rounded"
-          style={{ minWidth: 900, flexGrow: 1, overflowX: 'auto' }}
+          style={{ minWidth: 800, flexGrow: 1, overflowX: 'auto' }}
         >
           {/* 헤더 */}
           <div
