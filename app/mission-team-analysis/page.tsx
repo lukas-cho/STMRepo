@@ -8,6 +8,9 @@ import type { DataEntry as PeriodDataEntry } from '@/components/MissionTeamPerio
 type MemberDataEntry = {
   name: string
   value: number
+  period_start: string
+  period_end: string
+  member_count: number
 }
 
 // 차트 컴포넌트 동적 로딩 (SSR 제외)
@@ -107,11 +110,12 @@ export default function Page() {
         {viewMode === 'member' ? (
           <div className="w-[400px] h-[420px] mx-auto">
             <h2 className="text-xl font-semibold mb-3">📊 선교팀 인원수</h2>
-         <MissionTeamMemberPieChart
+<MissionTeamMemberPieChart
   data={memberData.map(d => ({
     ...d,
-    startdate: '',
-    enddate: '',
+    period_start: '',       // 빈 문자열로 채우기
+    period_end: '',         // 빈 문자열로 채우기
+    member_count: d.value // 또는 0 으로 넣어도 됨
   }))}
 />
           </div>

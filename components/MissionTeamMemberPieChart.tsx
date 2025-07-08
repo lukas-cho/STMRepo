@@ -5,7 +5,7 @@ import {
   PieChart,
   Pie,
   Cell,
-   Tooltip,   
+  Tooltip,
   PieLabelRenderProps,
   ResponsiveContainer,
 } from 'recharts'
@@ -16,8 +16,9 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A569BD', '#E67E22'
 export type DataEntry = {
   name: string
   value: number
-  startdate: string
-  enddate: string
+  period_start: string | Date | undefined
+  period_end: string | Date | undefined
+  member_count: number
 }
 
 interface Props {
@@ -25,6 +26,11 @@ interface Props {
 }
 
 export default function MissionTeamMemberPieChart({ data }: Props) {
+  console.log('data in MissionTeamMemberPieChart:', data)
+  data.forEach(entry => {
+    console.log('period_start:', entry.period_start, 'period_end:', entry.period_end)
+  })
+
   const parsePos = (pos: string | number | undefined, size: number): number => {
     if (pos === undefined) return size / 2
     if (typeof pos === 'string' && pos.endsWith('%')) {
@@ -67,16 +73,27 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
         fontSize={fontSize}
         fontWeight="bold"
       >
-        <tspan x={x} dy="0">{`${data[index].name}`}</tspan>
-        <tspan x={x} dy="1.2em">{`${data[index].value}명 (${(percent * 100).toFixed(1)}%)`}</tspan>
+        <tspan x={x} dy="0">{data[index].name}</tspan>
+        <tspan x={x} dy="1.2em">{`${data[index].member_count}명 (${(percent * 100).toFixed(1)}%)`}</tspan>
       </text>
     )
   }
 
+  // 날짜 출력 포맷 함수
+const formatDate = (date: string | Date | undefined) => {
+  if (!date) return '미정';
+
+  if (typeof date === 'string') {
+    return date.trim() === '' ? '미정' : date;
+  }
+
+  // date가 Date 타입이면 ISO 문자열로 변환
+  return date.toISOString().slice(0, 10);
+}
   return (
     <div className="max-w-7xl mx-auto p-4">
       <div className="flex flex-row gap-8" style={{ alignItems: 'flex-start' }}>
-        {/* 차트 영역: 고정 크기, flexShrink 0 */}
+        {/* 차트 영역 */}
         <div style={{ width: 400, height: 400, flexShrink: 0 }}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -88,7 +105,7 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
                 label={renderCustomizedLabel}
                 outerRadius="80%"
                 fill="#8884d8"
-                dataKey="value"
+                dataKey="member_count"
               >
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -99,35 +116,39 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
           </ResponsiveContainer>
         </div>
 
-        {/* 그리드 영역: 최소너비 유지 + 남은 공간 차지 + 가로스크롤 가능 */}
+        {/* 테이블 영역 */}
         <div
           className="border border-gray-300 rounded"
-          style={{ minWidth: 800, flexGrow: 1, overflowX: 'auto' }}
+          style={{ minWidth: 900, flexGrow: 1, overflowX: 'auto' }}
         >
           {/* 헤더 */}
           <div
             className="grid border-b border-gray-300 font-semibold"
-            style={{ gridTemplateColumns: '5fr 1fr 5fr' }}
+            style={{ gridTemplateColumns: '5fr 1fr 2.5fr 2.5fr' }}
           >
             <div className="p-2 border-r border-gray-300 last:border-r-0">팀 이름</div>
             <div className="p-2 text-center border-r border-gray-300 last:border-r-0">인원수</div>
-            <div className="p-2 text-center last:border-r-0">기간</div>
+            <div className="p-2 text-center border-r border-gray-300 last:border-r-0">시작일</div>
+            <div className="p-2 text-center last:border-r-0">종료일</div>
           </div>
 
+          {/* 데이터 행 */}
           {data.map((entry, i) => (
             <div
               key={i}
               className="grid border-b border-gray-300 last:border-b-0"
               style={{
-                gridTemplateColumns: '5fr 1fr 5fr',
+                gridTemplateColumns: '5fr 1fr 2.5fr 2.5fr',
                 lineHeight: '1.2',
                 paddingTop: '0.5rem',
                 paddingBottom: '0.5rem',
               }}
             >
               <div className="p-2 border-r border-gray-300 last:border-r-0 truncate">{entry.name}</div>
-              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{entry.value}</div>
-              <div className="p-2 text-center last:border-r-0">{`${entry.startdate} ~ ${entry.enddate}`}</div>
+              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{entry.member_count}</div>
+              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{formatDate(entry.period_start)}</div>
+              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{formatDate(entry.period_end)}</div>
+
             </div>
           ))}
         </div>
