@@ -73,101 +73,106 @@
 //   return { salesData, quantityData };
 // }
 
-import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabaseClient";
 
-type MissionTeamMenuRow = {
-  total_sales_amount: number;
-  ingredient_cost_amount: number;
-  quantity_sold: number;
-  quantity_available: number;
-  mission_teams: {
-    year: number;
-  } | null;
-};
 
-async function fetchSalesAndQuantityData(menuId: string) {
-  const { data, error } = (await supabase
-    .from("mission_team_menus")
-    .select(
-      `
-        total_sales_amount,
-        ingredient_cost_amount,
-        quantity_sold,
-        quantity_available,
-        mission_teams ( year )
-      `
-    )
-    .eq("menu_id", menuId)) as unknown as {
-    data: MissionTeamMenuRow[];
-    error: any;
-  };
 
-  if (error || !data) return { salesData: [], quantityData: [] };
 
-  const grouped: Record<
-    number,
-    {
-      sales: number;
-      cost: number;
-      margin: number;
-      sold: number;
-      available: number;
-    }
-  > = {};
 
-  for (const row of data) {
-    const year = row.mission_teams?.year;
-    if (!year) continue;
+// import { NextRequest, NextResponse } from "next/server";
+// import { supabase } from "@/lib/supabaseClient";
 
-    if (!grouped[year]) {
-      grouped[year] = {
-        sales: 0,
-        cost: 0,
-        margin: 0,
-        sold: 0,
-        available: 0,
-      };
-    }
+// type MissionTeamMenuRow = {
+//   total_sales_amount: number;
+//   ingredient_cost_amount: number;
+//   quantity_sold: number;
+//   quantity_available: number;
+//   mission_teams: {
+//     year: number;
+//   } | null;
+// };
 
-    grouped[year].sales += Number(row.total_sales_amount || 0);
-    grouped[year].cost += Number(row.ingredient_cost_amount || 0);
-    grouped[year].margin +=
-      Number(row.total_sales_amount || 0) -
-      Number(row.ingredient_cost_amount || 0);
-    grouped[year].sold += Number(row.quantity_sold || 0);
-    grouped[year].available += Number(row.quantity_available || 0);
-  }
+// async function fetchSalesAndQuantityData(menuId: string) {
+//   const { data, error } = (await supabase
+//     .from("mission_team_menus")
+//     .select(
+//       `
+//         total_sales_amount,
+//         ingredient_cost_amount,
+//         quantity_sold,
+//         quantity_available,
+//         mission_teams ( year )
+//       `
+//     )
+//     .eq("menu_id", menuId)) as unknown as {
+//     data: MissionTeamMenuRow[];
+//     error: any;
+//   };
 
-  const salesData = Object.entries(grouped).map(([year, values]) => ({
-    year: parseInt(year),
-    sales: values.sales,
-    cost: values.cost,
-    margin: values.margin,
-  }));
+//   if (error || !data) return { salesData: [], quantityData: [] };
 
-  const quantityData = Object.entries(grouped).map(([year, values]) => ({
-    year: parseInt(year),
-    sold: values.sold,
-    available: values.available,
-    remaining: values.available - values.sold,
-  }));
+//   const grouped: Record<
+//     number,
+//     {
+//       sales: number;
+//       cost: number;
+//       margin: number;
+//       sold: number;
+//       available: number;
+//     }
+//   > = {};
 
-  return { salesData, quantityData };
-}
+//   for (const row of data) {
+//     const year = row.mission_teams?.year;
+//     if (!year) continue;
 
-// ✅ This is the required Next.js App Router *export*:
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const menuId = searchParams.get("menuId");
+//     if (!grouped[year]) {
+//       grouped[year] = {
+//         sales: 0,
+//         cost: 0,
+//         margin: 0,
+//         sold: 0,
+//         available: 0,
+//       };
+//     }
 
-  if (!menuId) {
-    return NextResponse.json(
-      { error: "Missing menuId parameter" },
-      { status: 400 }
-    );
-  }
+//     grouped[year].sales += Number(row.total_sales_amount || 0);
+//     grouped[year].cost += Number(row.ingredient_cost_amount || 0);
+//     grouped[year].margin +=
+//       Number(row.total_sales_amount || 0) -
+//       Number(row.ingredient_cost_amount || 0);
+//     grouped[year].sold += Number(row.quantity_sold || 0);
+//     grouped[year].available += Number(row.quantity_available || 0);
+//   }
 
-  const result = await fetchSalesAndQuantityData(menuId);
-  return NextResponse.json(result);
-}
+//   const salesData = Object.entries(grouped).map(([year, values]) => ({
+//     year: parseInt(year),
+//     sales: values.sales,
+//     cost: values.cost,
+//     margin: values.margin,
+//   }));
+
+//   const quantityData = Object.entries(grouped).map(([year, values]) => ({
+//     year: parseInt(year),
+//     sold: values.sold,
+//     available: values.available,
+//     remaining: values.available - values.sold,
+//   }));
+
+//   return { salesData, quantityData };
+// }
+
+// // ✅ This is the required Next.js App Router *export*:
+// export async function GET(req: NextRequest) {
+//   const { searchParams } = new URL(req.url);
+//   const menuId = searchParams.get("menuId");
+
+//   if (!menuId) {
+//     return NextResponse.json(
+//       { error: "Missing menuId parameter" },
+//       { status: 400 }
+//     );
+//   }
+
+//   const result = await fetchSalesAndQuantityData(menuId);
+//   return NextResponse.json(result);
+// }

@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import MenuDetailClient from "@/components/menuDetailClient";
-//import { fetchSalesAndQuantityData } from "@/app/api/fetchSalesData/route";
+import { fetchSalesAndQuantityData } from "@/lib/fetchSalesAndQuantityData";
 
 function hexToBase64(hexString: string | null | undefined): string | null {
   if (!hexString) return null;
@@ -27,17 +27,17 @@ export default async function MenuDetailPage({
   }
 
   const base64Image = hexToBase64(menu.menu_image);
-  const imageSrc = `data:image/jpeg;base64,${base64Image}`;
+  const imageSrc = base64Image ? `data:image/jpeg;base64,${base64Image}` : null;
 
-  //    const { salesData, quantityData } = await fetchSalesAndQuantityData(menu.id);
-  const { salesData, quantityData } = { salesData: [], quantityData: [] };
+     const { salesData, quantityData } = await fetchSalesAndQuantityData(menu.id);
+  // const { salesData, quantityData } = { salesData: [], quantityData: [] };
 
   return (
     <div className="max-w-4xl mx-auto py-10 px-4 text-center">
       <h1 className="text-4xl font-bold">{menu.menu_name}</h1>
       <p className="text-gray-600 mt-2">단기선교에 후원해 주셔서 감사합니다.</p>
 
-      {imageSrc && (
+      {imageSrc && imageSrc.trim() !== "" && (
         <div className="mt-6">
           <img
             src={imageSrc}
