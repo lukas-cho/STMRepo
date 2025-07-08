@@ -3,6 +3,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import MenuDetailClient from "@/components/menuDetailClient";
 import { fetchSalesAndQuantityData } from "@/lib/fetchSalesAndQuantityData";
+import detailedSalesData from "@/components/detailedSalesChart"
+import { Buffer } from "buffer";
 
 function hexToBase64(hexString: string | null | undefined): string | null {
   if (!hexString) return null;
@@ -29,7 +31,7 @@ export default async function MenuDetailPage({
   const base64Image = hexToBase64(menu.menu_image);
   const imageSrc = base64Image ? `data:image/jpeg;base64,${base64Image}` : null;
 
-     const { salesData, quantityData } = await fetchSalesAndQuantityData(menu.id);
+     const { salesData, quantityData, detailedSalesData } = await fetchSalesAndQuantityData(menu.id);
   // const { salesData, quantityData } = { salesData: [], quantityData: [] };
 
   return (
@@ -53,6 +55,7 @@ export default async function MenuDetailPage({
         menu={menu}
         salesData={salesData}
         quantityData={quantityData}
+        detailedSalesData={detailedSalesData}
       />
     </div>
   );

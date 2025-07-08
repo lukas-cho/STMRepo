@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import IngredientSectionComponent from "./ingredientSectionComponent";
 import SalesQuantityGraphs from "./salesQuantityGraphs";
+import DetailedSalesChart, { DetailedSales } from "@/components/detailedSalesChart";
+import DetailedSalesTable from "@/components/detailedSalesTable";
+
 
 const tabs = [
     { label: '역대 판매 기록', id: 'sales' },
@@ -56,10 +59,12 @@ export default function MenuDetailClient({
   menu,
   salesData,
   quantityData,
+  detailedSalesData,
 }: {
   menu: any;
   salesData: SalesData[];
   quantityData: QuantityData[];
+  detailedSalesData: DetailedSales[];
 }) {
     const [activeTab, setActiveTab] = useState(tabs[0].id)
 
@@ -131,7 +136,15 @@ return (
           <section id="sales" className="scroll-mt-28 mb-28">
             <h2 className="text-2xl font-bold mb-6 text-center">역대 판매 기록</h2>
             <SalesQuantityGraphs salesData={salesData} quantityData={quantityData} />
+            <div className="mt-10">
+              {/* <h3 className="text-xl font-semibold mb-6 text-center">상세 판매 및 수익 분석</h3> */}
+              <DetailedSalesChart data={detailedSalesData} />
+              <div className="mt-8 overflow-x-auto">
+                <DetailedSalesTable data={detailedSalesData} />
+              </div>
+            </div>
           </section>
+          
 
           <section id="ingredients" className="scroll-mt-28 mb-28">
             <h2 className="text-2xl font-bold mb-6 text-center">재료 및 준비물</h2> 
