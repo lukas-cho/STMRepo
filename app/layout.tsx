@@ -44,7 +44,7 @@ export default function RootLayout({
           >
             <SidebarProvider>
               <AppSidebar />
-              <main className="ml-64 w-full px-6 py-8">
+              <main>
                 <ModeToggle />
                 <SidebarTrigger />
 

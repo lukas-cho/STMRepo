@@ -149,7 +149,7 @@ function splitSectionsLeftRight(sections: { title: string; items: string[] }[]) 
 }
 
 
-export default function IngredientSectionComponent({ ingredientText }: { ingredientText: string }) {
+export default function IngredientSectionComponent({ ingredientText, servingSize, }: { ingredientText: string; servingSize?: number }) {
   const sections = parseIngredientSections(ingredientText);
   const { left, right } = splitSectionsLeftRight(sections);
 
