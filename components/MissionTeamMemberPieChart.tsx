@@ -16,8 +16,8 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A569BD', '#E67E22'
 export type DataEntry = {
   name: string
   value: number
-  period_start: string | Date | undefined
-  period_end: string | Date | undefined
+  period_start: string  
+  period_end: string  
   member_count: number
 }
 
@@ -80,16 +80,18 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
   }
 
   // 날짜 출력 포맷 함수
-const formatDate = (date: string | Date | undefined) => {
-  if (!date) return '미정';
+// const formatDate = (date: string | Date | undefined) => {
+//   if (date === undefined || date === null) return '미정1'   // undefined, null만 체크
+// if (typeof date === 'string') {
+//   if (date.trim() === '') return '미정2'
+//   const parsedDate = new Date(date)
+//   if (isNaN(parsedDate.getTime())) return '미정3'  // 유효하지 않으면
+//   return parsedDate.toISOString().slice(0, 10)
+//   }
+//   // date가 Date 타입일 때
+//   return date.toISOString().slice(0, 10)
+// }
 
-  if (typeof date === 'string') {
-    return date.trim() === '' ? '미정' : date;
-  }
-
-  // date가 Date 타입이면 ISO 문자열로 변환
-  return date.toISOString().slice(0, 10);
-}
   return (
     <div className="max-w-7xl mx-auto p-4">
       <div className="flex flex-row gap-8" style={{ alignItems: 'flex-start' }}>
@@ -134,6 +136,7 @@ const formatDate = (date: string | Date | undefined) => {
 
           {/* 데이터 행 */}
           {data.map((entry, i) => (
+            
             <div
               key={i}
               className="grid border-b border-gray-300 last:border-b-0"
@@ -146,11 +149,13 @@ const formatDate = (date: string | Date | undefined) => {
             >
               <div className="p-2 border-r border-gray-300 last:border-r-0 truncate">{entry.name}</div>
               <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{entry.member_count}</div>
-              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{formatDate(entry.period_start)}</div>
-              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{formatDate(entry.period_end)}</div>
-
+              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{entry.period_start}</div>
+              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{entry.period_end}</div>
+           
             </div>
           ))}
+
+            
         </div>
       </div>
     </div>

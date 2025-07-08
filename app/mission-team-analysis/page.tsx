@@ -113,9 +113,9 @@ export default function Page() {
 <MissionTeamMemberPieChart
   data={memberData.map(d => ({
     ...d,
-    period_start: '',       // 빈 문자열로 채우기
-    period_end: '',         // 빈 문자열로 채우기
-    member_count: d.value // 또는 0 으로 넣어도 됨
+    period_start: d.period_start ?? '',
+    period_end: d.period_end ?? '',
+    member_count: d.value
   }))}
 />
           </div>
