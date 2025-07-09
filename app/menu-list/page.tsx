@@ -48,10 +48,10 @@ export default function MenuListPage() {
           setCategoryId={setCategoryId}
         />
       </div>
-      <MenuGrid menus={menus} setMenus={setMenus} loading={loading} />
+      {/* <MenuGrid menus={menus} setMenus={setMenus} loading={loading} /> */}
       {/* 메뉴 카드 그리드 */}
       <div>
-        <MenuGrid menus={menus} setMenus={setMenus} />
+        <MenuGrid menus={menus} setMenus={setMenus} loading={loading} />
       </div>
     </div>
   );
