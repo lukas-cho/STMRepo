@@ -10,7 +10,7 @@ type MenuItem = {
   menu: {
     id: string;
     menu_name: string;
-    menu_image: Buffer;
+    menu_image: string;
     menu_category_id: string;
     menu_categories: {
       category_name: string;
