@@ -30,23 +30,24 @@ export default function AISearch() {
           <Input
             type="email"
             placeholder="예상되는 구매 성도님 200명, 예산 $1000로 준비 가능한 메뉴 추천해줘."
-            className="bg-gray-100 text-7xl rounded-md border border-gray-300"
+            className="bg-gray-100 rounded-md border border-gray-300"
           />
           <br />
           <Input
             type="email"
             placeholder="최근 2년동안 인기 많았던 메뉴는?"
-            className="bg-gray-100 text-5xl"
+            className="bg-gray-100 rounded-md border border-gray-300"
           />
           <br />
           <Input
             type="email"
             placeholder="준비하는데 투자된 노동력과 예산에 비해 가성비가 좋았던 메뉴는?"
-            className="bg-gray-100 text-5xl"
+            className="bg-gray-100 rounded-md border border-gray-300"
           />
           <br />
+          직접 한번 물어보세요.
           <div className="bg-gray-100 grid w-full gap-3">
-            <Label htmlFor="message">직접 한번 물어보세요.</Label>
+            <Label htmlFor="message"></Label>
             <Textarea placeholder="" id="message" />
             <Button>AI 검색하기</Button>
           </div>
