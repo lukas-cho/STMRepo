@@ -113,7 +113,7 @@ export function SectionCards() {
           <div className="text-muted-foreground">
             AI 분석: 아이템별 책정 가격 상승
           </div>
-          <Link href="/yearly-participants" className="hover:shadow-xl">
+          <Link href="/yearly-sales" className="hover:shadow-xl">
             <Button variant="outline" size="sm">
               <ChevronRightIcon />
               자세히 보기
