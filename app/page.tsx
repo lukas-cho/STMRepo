@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import React, { useMemo } from "react"; // 여기서 useMemo 임포트 추가
 import { SectionCards } from "@/components/section-cards";
+import { ChartAreaInteractive } from "@/components/chart-area-interactive";
 import {
   Accordion,
   AccordionContent,
@@ -9,6 +10,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { IconMail } from "@tabler/icons-react";
+import { TableDemo } from "@/components/recent-mission-trip-table";
 
 export default function HomePage() {
   return (
@@ -52,8 +54,9 @@ export default function HomePage() {
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
               <SectionCards />
               <div className="px-4 lg:px-6">
-                {/* <ChartAreaInteractive /> */}
+                <ChartAreaInteractive />
               </div>
+              <TableDemo />
               {/* <DataTable data={data} /> */}
             </div>
           </div>
