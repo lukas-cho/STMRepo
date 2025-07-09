@@ -18,17 +18,6 @@ type QuantityData = {
   remaining: number;
 };
 
-// 실제 데이터 fetch 로직 필요
-// const salesData: SalesData[] = [
-//   { year: 2022, sales: 10000, cost: 4000, margin: 6000 },
-//   { year: 2023, sales: 15000, cost: 7000, margin: 8000 },
-// ];
-
-// const quantityData: QuantityData[] = [
-//   { year: 2022, sold: 200, available: 250, remaining: 50 },
-//   { year: 2023, sold: 300, available: 350, remaining: 50 },
-// ];
-
 export default function SalesQuantityGraphs({
   salesData,
   quantityData,
