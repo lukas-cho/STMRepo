@@ -113,7 +113,7 @@ const data = {
     },
     {
       title: "문의 하기",
-      url: "#",
+      url: "/contact",
       icon: HelpCircle,
       items: [],
     },
