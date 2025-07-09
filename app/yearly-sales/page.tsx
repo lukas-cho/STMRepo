@@ -25,7 +25,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A multiple bar chart";
+//export const description = "A multiple bar chart";
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
