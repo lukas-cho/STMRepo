@@ -179,9 +179,9 @@ export function ChartAreaInteractive() {
             variant="outline"
             className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
           >
-            <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
-            <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
-            <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
+            <ToggleGroupItem value="90d">전체 시간대</ToggleGroupItem>
+            <ToggleGroupItem value="30d">오전 시간대</ToggleGroupItem>
+            <ToggleGroupItem value="7d">오후 시간대</ToggleGroupItem>
           </ToggleGroup>
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger
@@ -238,7 +238,7 @@ export function ChartAreaInteractive() {
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} />
-            <XAxis
+            {/* <XAxis
               dataKey="date"
               tickLine={false}
               axisLine={false}
@@ -251,7 +251,7 @@ export function ChartAreaInteractive() {
                   day: "numeric",
                 });
               }}
-            />
+            /> */}
             <ChartTooltip
               cursor={false}
               defaultIndex={isMobile ? -1 : 10}
