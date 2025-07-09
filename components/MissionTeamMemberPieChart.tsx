@@ -26,11 +26,6 @@ interface Props {
 }
 
 export default function MissionTeamMemberPieChart({ data }: Props) {
-  console.log('data in MissionTeamMemberPieChart:', data)
-  data.forEach(entry => {
-    console.log('period_start:', entry.period_start, 'period_end:', entry.period_end)
-  })
-
   const parsePos = (pos: string | number | undefined, size: number): number => {
     if (pos === undefined) return size / 2
     if (typeof pos === 'string' && pos.endsWith('%')) {
@@ -79,22 +74,9 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
     )
   }
 
-  // 날짜 출력 포맷 함수
-// const formatDate = (date: string | Date | undefined) => {
-//   if (date === undefined || date === null) return '미정1'   // undefined, null만 체크
-// if (typeof date === 'string') {
-//   if (date.trim() === '') return '미정2'
-//   const parsedDate = new Date(date)
-//   if (isNaN(parsedDate.getTime())) return '미정3'  // 유효하지 않으면
-//   return parsedDate.toISOString().slice(0, 10)
-//   }
-//   // date가 Date 타입일 때
-//   return date.toISOString().slice(0, 10)
-// }
-
   return (
-    <div >
-      <div className="flex flex-row gap-8" style={{ alignItems: 'flex-start' }}>
+    <div className="max-w-7xl mx-auto p-0">
+      <div>
         {/* 차트 영역 */}
         <div style={{ width: 400, height: 400, flexShrink: 0 }}>
           <ResponsiveContainer width="100%" height="100%">
@@ -120,23 +102,33 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
 
         {/* 테이블 영역 */}
         <div
-          className="border border-gray-300 rounded"
-          style={{ minWidth: 800, flexGrow: 1, overflowX: 'auto' }}
+          className="border border-gray-300 rounded overflow-x-auto"
+          style={{ minWidth: 900, flexGrow: 1 }}
         >
           {/* 헤더 */}
           <div
-            className="grid border-b border-gray-300 font-semibold"
+            className="grid border-b border-gray-300 font-semibold bg-gray-100"
             style={{ gridTemplateColumns: '5fr 1fr 2.5fr 2.5fr' }}
           >
-            <div className="p-2 border-r border-gray-300 last:border-r-0">팀 이름</div>
-            <div className="p-2 text-center border-r border-gray-300 last:border-r-0">인원수</div>
-            <div className="p-2 text-center border-r border-gray-300 last:border-r-0">시작일</div>
-            <div className="p-2 text-center last:border-r-0">종료일</div>
+            {[
+              { label: '팀 이름' },
+              { label: '인원수' },
+              { label: '시작일' },
+              { label: '종료일' },
+            ].map((col, i, arr) => (
+              <div
+                key={col.label}
+                className={`p-2 border-r border-gray-300 ${
+                  i === arr.length - 1 ? 'border-r-0' : ''
+                }`}
+              >
+                {col.label}
+              </div>
+            ))}
           </div>
 
           {/* 데이터 행 */}
           {data.map((entry, i) => (
-            
             <div
               key={i}
               className="grid border-b border-gray-300 last:border-b-0"
@@ -150,12 +142,9 @@ export default function MissionTeamMemberPieChart({ data }: Props) {
               <div className="p-2 border-r border-gray-300 last:border-r-0 truncate">{entry.name}</div>
               <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{entry.member_count}</div>
               <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{entry.period_start}</div>
-              <div className="p-2 text-center border-r border-gray-300 last:border-r-0">{entry.period_end}</div>
-           
+              <div className="p-2 text-center last:border-r-0">{entry.period_end}</div>
             </div>
           ))}
-
-            
         </div>
       </div>
     </div>

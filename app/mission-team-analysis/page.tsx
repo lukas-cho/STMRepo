@@ -180,8 +180,8 @@ export default function Page() {
       {/* 차트 및 그리드 출력 */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         {viewMode === 'member' && (
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
-            <h2 className="text-xl font-semibold mb-4">📊 선교팀 인원수</h2>
+          <div >
+            <h2 className="text-xl font-semibold mb-0">📊 선교팀 인원수</h2>
             <MissionTeamMemberPieChart
               data={memberData.map((d) => ({
                 ...d,

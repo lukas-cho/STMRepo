@@ -120,7 +120,7 @@ export default function NewMissionTeamForm() {
           <span className="text-red-500 font-bold">*</span> 표시된 항목은 필수 입력 항목입니다.
         </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+        <form onSubmit={handleSubmit(onSubmit)}  className="space-y-4 min-w-[600px] max-w-full" noValidate>
           {/* 국가 */}
           <div>
             <label className="font-semibold">국가 <span className="text-red-500">*</span></label>
