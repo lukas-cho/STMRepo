@@ -47,6 +47,10 @@ export default function NewMissionTeamForm() {
   const watchedPeriodStart = watch('period_start')
   const watchedPeriodEnd = watch('period_end')
 
+  // description 감시
+  const description = watch('description') || ''
+  const maxDescriptionLength = 3000
+
   useEffect(() => {
     async function fetchCountries() {
       try {
@@ -67,7 +71,7 @@ export default function NewMissionTeamForm() {
     if (!watchedYear) return
 
     const now = new Date()
-    const month = now.getMonth() // 0 ~ 11
+    const month = now.getMonth()
     const date = now.getDate()
 
     const newDate = new Date(watchedYear, month, date)
@@ -80,6 +84,13 @@ export default function NewMissionTeamForm() {
       setValue('period_end', isoDate)
     }
   }, [watchedYear, watchedPeriodStart, watchedPeriodEnd, setValue])
+
+  // description 글자수 제한 핸들러 (선택사항)
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length <= maxDescriptionLength) {
+      setValue('description', e.target.value)
+    }
+  }
 
   const onSubmit: SubmitHandler<MissionTeamForm> = async (data) => {
     try {
@@ -106,8 +117,8 @@ export default function NewMissionTeamForm() {
   }
 
   return (
-<div className="min-h-screen flex items-start justify-center p-4 bg-gray-50">
-  <div className="w-full max-w-6xl bg-white p-6 rounded-lg shadow-lg">
+    <div className="min-h-screen flex items-start justify-center p-4 bg-gray-50">
+      <div className="w-full max-w-6xl bg-white p-6 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4 text-center">새로운 선교팀 등록</h1>
 
         {successMessage && (
@@ -120,7 +131,7 @@ export default function NewMissionTeamForm() {
           <span className="text-red-500 font-bold">*</span> 표시된 항목은 필수 입력 항목입니다.
         </p>
 
-        <form onSubmit={handleSubmit(onSubmit)}  className="space-y-4 min-w-[600px] max-w-full" noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 min-w-[600px] max-w-full" noValidate>
           {/* 국가 */}
           <div>
             <label className="font-semibold">국가 <span className="text-red-500">*</span></label>
@@ -226,12 +237,20 @@ export default function NewMissionTeamForm() {
 
           {/* 설명 */}
           <div>
-            <label className="font-semibold">설명</label>
+            <label className="font-semibold flex justify-between">
+              팀 설명
+           
+            </label>
             <textarea
               {...register('description')}
-              className="border w-full p-2 mt-1 h-24"
+              onChange={handleDescriptionChange}
+              className="border w-full p-2 mt-1 h-24 resize-y"
               placeholder="팀에 대한 설명"
+              maxLength={maxDescriptionLength}
             />
+               <span className={`text-sm ${description.length > maxDescriptionLength ? 'text-red-500' : 'text-gray-500'}`}>
+                {description.length} / {maxDescriptionLength}
+              </span>
           </div>
 
           {/* 담당자 이메일 */}
