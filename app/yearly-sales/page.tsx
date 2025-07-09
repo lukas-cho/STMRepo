@@ -28,12 +28,21 @@ import {
 //export const description = "A multiple bar chart";
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "2020", Morning: 18600, Afternoon: 8000 },
+  { month: "2021", Morning: 30500, Afternoon: 20000 },
+  { month: "2022", Morning: 23700, Afternoon: 12000 },
+  { month: "2023", Morning: 7300, Afternoon: 19000 },
+  { month: "2024", Morning: 20900, Afternoon: 13000 },
+  { month: "2025", Morning: 21400, Afternoon: 14000 },
+];
+
+const chartData2 = [
+  { month: "2020", Morning: 26600, Afternoon: 8000 },
+  { month: "2021", Morning: 50500, Afternoon: 20000 },
+  { month: "2022", Morning: 35700, Afternoon: 12000 },
+  { month: "2023", Morning: 26300, Afternoon: 19000 },
+  { month: "2024", Morning: 33900, Afternoon: 13000 },
+  { month: "2025", Morning: 35400, Afternoon: 14000 },
 ];
 
 // const chartConfig = {
@@ -48,13 +57,13 @@ const chartData = [
 // } satisfies ChartConfig;
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-5)",
-  },
-  mobile: {
-    label: "Mobile",
+  Morning: {
+    label: "Morning",
     color: "var(--chart-1)",
+  },
+  Afternoon: {
+    label: "Afternoon",
+    color: "var(--chart-2)",
   },
   label: {
     color: "var(--background)",
@@ -66,8 +75,8 @@ export default function ChartBarMultiple() {
     <div className="flex flex-row">
       <Card>
         <CardHeader>
-          <CardTitle>Bar Chart - Multiple</CardTitle>
-          <CardDescription>January - June 2024</CardDescription>
+          <CardTitle>연도별 오전/오후 선교후원금 모금집계</CardTitle>
+          <CardDescription>2020 - 2025</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig}>
@@ -78,37 +87,41 @@ export default function ChartBarMultiple() {
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
+                tickFormatter={(value) => value.slice(0, 5)}
               />
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent indicator="dashed" />}
               />
-              <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-              <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+              <Bar dataKey="Morning" fill="var(--color-Morning)" radius={4} />
+              <Bar
+                dataKey="Afternoon"
+                fill="var(--color-Afternoon)"
+                radius={4}
+              />
             </BarChart>
           </ChartContainer>
         </CardContent>
         <CardFooter className="flex-col items-start gap-2 text-sm">
           <div className="flex gap-2 leading-none font-medium">
-            Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+            작년대비 올해 5.2% 상승 <TrendingUp className="h-4 w-4" />
           </div>
           <div className="text-muted-foreground leading-none">
-            Showing total visitors for the last 6 months
+            최근 5년간 오전 / 오후 선교후원금 모금집계
           </div>
         </CardFooter>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Bar Chart - Custom Label</CardTitle>
-          <CardDescription>January - June 2024</CardDescription>
+          <CardTitle>연도별 총 선교 후원금 모금 집계</CardTitle>
+          <CardDescription>2020 - 2025</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig}>
             <BarChart
               accessibilityLayer
-              data={chartData}
+              data={chartData2}
               layout="vertical"
               margin={{
                 right: 16,
@@ -121,18 +134,18 @@ export default function ChartBarMultiple() {
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
+                tickFormatter={(value) => value.slice(0, 4)}
                 hide
               />
-              <XAxis dataKey="desktop" type="number" hide />
+              <XAxis dataKey="Morning" type="number" hide />
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent indicator="line" />}
               />
               <Bar
-                dataKey="desktop"
+                dataKey="Morning"
                 layout="vertical"
-                fill="var(--color-desktop)"
+                fill="var(--color-Morning)"
                 radius={4}
               >
                 <LabelList
@@ -143,7 +156,7 @@ export default function ChartBarMultiple() {
                   fontSize={12}
                 />
                 <LabelList
-                  dataKey="desktop"
+                  dataKey="Morning"
                   position="right"
                   offset={8}
                   className="fill-foreground"
@@ -155,10 +168,10 @@ export default function ChartBarMultiple() {
         </CardContent>
         <CardFooter className="flex-col items-start gap-2 text-sm">
           <div className="flex gap-2 leading-none font-medium">
-            Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+            작년대비 올해 5.2% 상승 <TrendingUp className="h-4 w-4" />
           </div>
           <div className="text-muted-foreground leading-none">
-            Showing total visitors for the last 6 months
+            최근 5년간 오전 / 오후 선교후원금 모금집계
           </div>
         </CardFooter>
       </Card>
