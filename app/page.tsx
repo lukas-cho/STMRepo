@@ -42,6 +42,7 @@ export default function HomePage() {
                 역대 메뉴 보기
               </a>
             </div>
+            <div className="mt-8 mx-10"> </div>
             <div className="mt-8">
               <a
                 href="#faq"
@@ -107,7 +108,7 @@ export default function HomePage() {
           </AccordionItem>
           <AccordionItem
             value="item-2"
-            className="rounded-xl overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl cursor-pointer"
+            className="rounded-xl overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl cursor-pointer my-5"
           >
             <AccordionTrigger className="text-xl bg-gray-100 px-3 py-5">
               인공지능을 이용한 자연어 검색을 지원하나요?
@@ -118,7 +119,7 @@ export default function HomePage() {
           </AccordionItem>
           <AccordionItem
             value="item-3"
-            className="rounded-xl overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl cursor-pointer"
+            className="rounded-xl overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl cursor-pointer my-5"
           >
             <AccordionTrigger className="text-xl bg-gray-100 px-3 py-5">
               문의 사항이 있습니다. 어떻게 연락할수 있나요?
