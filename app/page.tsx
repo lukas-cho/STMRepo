@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/accordion";
 import { IconMail } from "@tabler/icons-react";
 import { TableDemo } from "@/components/recent-mission-trip-table";
+import { Badge } from "@/components/ui/badge";
 
 export default function HomePage() {
   return (
@@ -18,17 +19,19 @@ export default function HomePage() {
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            단기선교 바자회
+            단기선교 (바자회)
             <br />
             노하우 공유 플랫폼
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-4">
-            이 플랫폼은 단기선교 바자회에 참여하는 선교팀들이 판매 메뉴와 판매
-            현황을 공유·분석하여 다음 바자회를 준비하는 데 도움이 되도록 만든
-            공간입니다.
+            이 플랫폼은 단기선교에 참여하고푼 선교팀들이 과거 바자회 판매 메뉴와
+            판매 현황을 공유·분석하여 다음 바자회를 준비하는 데 도움이 되도록
+            만든 공간입니다. 또한 과거 단기선교팀들의 경험과 노하우를 공유하여
+            선교팀들이 더 나은 단기선교를 준비할 수 있도록 돕는 것을 목표로
+            합니다.
           </p>
           <p className="text-lg md:text-xl text-gray-600">
-            선교 바자회를 위한 아이디어와 노하우를 이곳에서 찾아보세요.
+            단기 선교를 위한 아이디어와 노하우를 이곳에서 찾아보세요.
           </p>
           <div className="flex justify-center mt-8">
             <div className="mt-8">
@@ -56,31 +59,38 @@ export default function HomePage() {
               <div className="px-4 lg:px-6">
                 <ChartAreaInteractive />
               </div>
-              <TableDemo />
+              <div className="px-4 lg:px-6">
+                <TableDemo />
+              </div>
               {/* <DataTable data={data} /> */}
             </div>
           </div>
         </div>
-        <iframe
-          className="mt-6 w-full h-64 md:h-96 rounded-lg shadow-lg"
-          src="https://youtube.com/embed/jT2J-zpf_CM"
-        ></iframe>
+        <div className="px-4 lg:px-6">
+          <iframe
+            className="mt-6 w-full h-64 md:h-150 rounded-lg shadow-lg"
+            src="https://youtube.com/embed/jT2J-zpf_CM"
+          ></iframe>
+        </div>
       </section>
       <section
         id="faq"
-        className="w-full max-w-3xl items-center mx-auto px-10 py-10 bg-gray-200 rounded-2xl shadow-lg"
+        className="w-full max-w-4xl items-center mx-auto px-10 py-10 bg-gray-200 rounded-2xl shadow-lg"
       >
+        <div className="flex justify-center mb-6">
+          <Badge variant="secondary">Your Queries, Simplified!</Badge>
+        </div>
         <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8">
           Questions? Answers!
         </h2>
-        <p className="text-lg md:text-xl text-gray-600 mb-6">
+        <p className="text-lg md:text-xl text-center text-gray-600 mb-6">
           많았던 질문과 그에 대한 대답을 밑에 모아놨습니다. 자주 묻는 질문과
           답변을 확인해 보세요.
         </p>
         <Accordion type="single" collapsible className="w-full" defaultValue="">
           <AccordionItem
             value="item-1"
-            className="rounded-xl overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl cursor-pointer"
+            className="rounded-xl overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl cursor-pointe"
           >
             <AccordionTrigger className="text-xl bg-gray-100 px-3 py-5">
               단기선교 바자회 Know-How Repository가 뭔가요?

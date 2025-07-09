@@ -12,8 +12,9 @@ import {
   House,
   Map,
   PieChart,
-  Settings2,
-  SquareTerminal,
+  Utensils,
+  ChartPie,
+  HelpCircle,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -58,60 +59,14 @@ const data = {
       url: "/",
       icon: House,
       isActive: true,
-      items: [
-        {
-          title: "Home",
-          url: "/",
-        },
-        {
-          title: "전체 메뉴",
-          url: "menu-list",
-        },
-        {
-          title: "전체 선교팀",
-          url: "/",
-        },
-      ],
+      items: [],
     },
     {
-      title: "AI 입력 도우미",
-      url: "/ai",
-      icon: Bot,
-      items: [
-        {
-          title: "음성 입력",
-          url: "/all-ai-test",
-        },
-        {
-          title: "사진 입력",
-          url: "/all-ai-test",
-        },
-        {
-          title: "영상 입력",
-          url: "/all-ai-test",
-        },
-      ],
+      title: "전체 바자회 메뉴",
+      url: "/menu-list",
+      icon: Utensils,
+      items: [],
     },
-    {
-      title: "판매현황 분석조회",
-      url: "/",
-      icon: ChartNoAxesCombined,
-      items: [
-        {
-          title: "선교팀별 판매현황",
-          url: "mission-team-menu-analysis",
-        },
-        {
-          title: "메뉴별 판매현황 등록",
-          url: "mission-team-menu-analysis",
-        },
-        {
-          title: "년도별 판매현황 등록",
-          url: "mission-team-menu-analysis",
-        },
-      ],
-    },
-
     {
       title: "새로운 등록",
       url: "/",
@@ -119,55 +74,48 @@ const data = {
       items: [
         {
           title: "새로운 메뉴 등록",
-          url: "newmenu-create",
+          url: "/newmenu-create",
         },
         {
           title: "새로운 선교팀 등록",
-          url: "newmission-team-create",
+          url: "/newmission-team-create",
         },
         {
           title: "팀별 판매 메뉴 및 매출 정보 입력",
-          url: "mission-team-menu-add",
+          url: "/mission-team-menu-add",
+        },
+        {
+          title: "AI 입력 도우미",
+          url: "/ai/all-ai-test",
         },
       ],
     },
     {
       title: "선교 자료 분석 조회",
       url: "#",
-      icon: BookOpen,
+      icon: ChartNoAxesCombined,
       items: [
         {
           title: "선교팀 분석 자료",
-          url: "mission-team-analysis",
+          url: "/mission-team-analysis",
         },
         {
           title: "바자회 메뉴 분석 자료",
-          url: "mission-team-menu-analysis",
+          url: "/mission-team-menu-analysis",
         },
       ],
     },
     {
       title: "AI 검색",
+      url: "/ai-search",
+      icon: Bot,
+      items: [],
+    },
+    {
+      title: "문의 하기",
       url: "#",
-      icon: Settings2,
-      // items: [
-      //   {
-      //     title: "General",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Team",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Billing",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Limits",
-      //     url: "#",
-      //   },
-      // ],
+      icon: HelpCircle,
+      items: [],
     },
   ],
   projects: [
