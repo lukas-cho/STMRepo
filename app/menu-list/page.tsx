@@ -21,7 +21,7 @@ type MenuItem = {
 export default function MenuListPage() {
   // Category and Year selections
   const [categoryId, setCategoryId] = useState<string>("All");
-  const [selectedYear, setSelectedYear] = useState<string>("2024");
+  const [selectedYear, setSelectedYear] = useState<string>("All");
 
   // 메뉴 데이터 상태
   const [menus, setMenus] = useState<MenuItem[]>([]);
