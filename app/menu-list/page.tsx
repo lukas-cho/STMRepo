@@ -25,12 +25,15 @@ export default function MenuListPage() {
 
   // 메뉴 데이터 상태
   const [menus, setMenus] = useState<MenuItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // 메뉴 데이터 필터링
   useEffect(() => {
+    setLoading(true);
     fetch(`/api/filtered-menus?year=${selectedYear}&categoryId=${categoryId}`)
       .then((res) => res.json())
-      .then(setMenus);
+      .then(setMenus)
+      .finally(() => setLoading(false));
   }, [selectedYear, categoryId]);
 
   return (
@@ -45,7 +48,7 @@ export default function MenuListPage() {
           setCategoryId={setCategoryId}
         />
       </div>
-
+      <MenuGrid menus={menus} setMenus={setMenus} loading={loading} />
       {/* 메뉴 카드 그리드 */}
       <div>
         <MenuGrid menus={menus} setMenus={setMenus} />
